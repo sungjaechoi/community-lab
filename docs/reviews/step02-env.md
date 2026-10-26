@@ -1,8 +1,8 @@
 # 02-ENV-REVIEW · 환경·Git 준비 확인
 
-현재 상태: **`02-ENV-REVIEW` DONE · `02-ENV-COMMIT` APPROVED(커밋 대기)** · 작성일: 2026-10-26 (Asia/Seoul)
+현재 상태: **`02-ENV-REVIEW`·`02-ENV-COMMIT`·`02-GIT-PUSH` DONE** · 작성일: 2026-10-26 (Asia/Seoul). 현재·다음 작업은 `02-UI-01 / IN_PROGRESS`, 다음 사용자 확인은 `02-UI-REVIEW`다.
 
-사용자의 후속 응답 “진행해줘”를 직전 환경 REVIEW 안내·로그인 및 쓰기 권한 검증 완료 문맥에서 현재 환경 범위의 진행 승인으로 해석했다. 실제 말·해석 근거·기록 시각·확인 범위는 7절에 기록했다. 아래 최초 검토 자료와 당시 검사 결과는 이력으로 보존하며, 커밋·push 성공은 아직 기록하지 않는다.
+사용자의 후속 응답 “진행해줘”를 직전 환경 REVIEW 안내·로그인 및 쓰기 권한 검증 완료 문맥에서 환경 범위의 진행 승인으로 해석했다. 실제 말·해석 근거·기록 시각·확인 범위는 7절, 실제 커밋·push 성공은 8절에 기록했다. 아래 최초 검토 자료와 당시 검사 결과는 이력으로 보존한다. 공통 UI는 진행 중이며 아직 사용자 확인·커밋 전이다.
 
 ## 1. 확인 범위와 WHY
 
@@ -14,7 +14,7 @@ STEP 01 P-01~P-08 승인·`01-RECORD`를 기록하고 실행 가능한 Next.js �
 - 정식 [플랜](../work-plan.md)·[진행 기록](../work-status.md)과 STEP 01 문서는 앱 안으로 이관했다. 다음 작업부터 이 앱 폴더를 선택한다.
 - 구성·선택 이유·계정 인계 상세: [환경 설정 문서](../development-setup.md).
 
-## 2. 직접 확인하는 방법
+## 2. 환경 REVIEW 당시 직접 확인 방법
 
 개발 서버는 위 로컬 주소에서 실행 중이다. 종료되었다면 앱 폴더 터미널에서 아래 명령으로 다시 실행한다. 이번에는 환경 변수나 Supabase 계정 없이 실행할 수 있다.
 
@@ -41,7 +41,7 @@ curl -i -X POST http://127.0.0.1:3001/api/health
 
 위 이미지는 실제 로컬 브라우저 화면이다. 준비 화면이며 공통 내비게이션·기능 UI가 완료되었다는 뜻은 아니다.
 
-## 3. 실제 검증
+## 3. 환경 REVIEW 당시 실제 검증
 
 | 검사 | 실제 결과 |
 | --- | --- |
@@ -65,19 +65,20 @@ curl -i -X POST http://127.0.0.1:3001/api/health
 | 대상 | 사용자가 지정한 https://github.com/sungjaechoi/community-lab.git |
 | 공개 범위 | GitHub 메타데이터상 public. 신규 공개 설정 변경은 하지 않음 |
 | remote | origin HTTPS 등록, git ls-remote·git fetch origin 성공 |
-| 기존 이력 | 원격 branch/commit ref 없음. 기본 브랜치 메타데이터는 main |
-| 현재 작업·예정 push 브랜치 | codex/step02-environment → origin의 같은 이름 브랜치 |
+| 기존 이력·현재 원격 | 최초 원격에는 branch/commit ref가 없었다. 첫 push 후 origin/codex/step02-environment에 환경 커밋 반영 |
+| 기본 브랜치 메타데이터 | 최초 main → 첫 push 뒤 GitHub API 조회는 codex/step02-environment. 별도 기본 브랜치 변경 명령 없음 |
+| 현재 작업·실제 push 브랜치 | codex/step02-environment → origin의 같은 이름 브랜치, upstream 설정 완료 |
 | push 허용 정책 | 사용자 실제 답변: “확인 후 커밋하면 지정한 원격 브랜치로 push 허용” |
-| 쓰기 인증 | 후속 사용자 로그인 완료 뒤 sungjaechoi 활성 계정·HTTPS·인증된 저장소 API의 permissions.push=true 확인. 실제 push는 미실행 |
-| 로컬 이력 | 커밋 없음·staged 없음. 환경 확인 완료, 02-ENV-COMMIT 승인·대기 |
+| 쓰기 인증 | 사용자 로그인 뒤 sungjaechoi 활성 계정·HTTPS·API permissions.push=true 확인. 이후 실제 push 성공도 별도 검증 |
+| 로컬 이력 | 환경 첫 커밋 d9b9f8ffdfef542d47c60d24fb6a5f4770cca011, 31개 파일. push 직후 clean 확인 후 공통 UI·후속 문서 작업 중 |
 
 사용자가 CLI 로그인을 완료했고 실제 계정·쓰기 권한을 검증했다. 현재 추가 계정 작업은 없다. 향후 인증이 만료되거나 실패하면 터미널에서 `gh auth login → GitHub.com → HTTPS → Login with a web browser`로 진행한다. 필요한 MFA는 해당 화면에서 처리하고 비밀번호·토큰·인증 코드는 채팅에 보내지 않는다. [조건별 계정 인계](../development-setup.md)를 따른다. 로그인 완료는 환경 REVIEW 승인이나 실제 push 성공과 구분한다.
 
-원격 읽기 성공을 로그인·쓰기 권한·push 완료로 기록하지 않는다. 확인 뒤 첫 push 전에는 원격 이력과 권한을 다시 확인한다. 보호 정책·충돌을 강제 push나 검사 해제로 통과시키지 않는다.
+원격 읽기·로그인·API 쓰기 권한·실제 push 성공을 각각 구분했다. 첫 push 전에 원격 이력과 권한을 재확인하고 허용된 같은 브랜치로 반영했다. 보호 정책·충돌을 강제 push나 검사 해제로 통과시키지 않았다.
 
-## 5. 첫 커밋 대상과 남은 한계
+## 5. 첫 커밋 대상 확인 당시 자료와 남은 한계
 
-첫 커밋 후보는 앱의 기본 코드·설정·lockfile·README·병합된 AGENTS, 승인된 STEP 01 문서와 정식 플랜·진행 기록, 이번 환경 문서·검토 화면이다. 정확한 파일 목록은 `02-ENV-COMMIT` 직전 실제 diff/새 파일과 함께 다시 확인한다.
+최초 첫 커밋 후보는 앱의 기본 코드·설정·lockfile·README·병합된 AGENTS, 승인된 STEP 01 문서와 정식 플랜·진행 기록, 이번 환경 문서·검토 화면이었다. `02-ENV-COMMIT` 직전 실제 diff·제외 대상을 확인해 아래 범위의 31개 파일을 커밋했다. 이후 성공 해시·진행 상태 기록은 다음 예정 UI 커밋에 포함한다.
 
 | 묶음 | 파일·경로 |
 | --- | --- |
@@ -90,7 +91,7 @@ curl -i -X POST http://127.0.0.1:3001/api/health
 - 생성기의 ESLint 9.39.5는 지원 종료 경고가 있다. 일부 포함 플러그인의 ESLint 10 지원 선언이 없어 기본 조합을 유지했다. lint는 통과했으나 도구 호환성 갱신은 남은 항목이다. [근거와 한계](../development-setup.md).
 - 생성기 pnpm 설정의 native 설치 스크립트 제외는 현재 기기 검증만 통과했다. 다른 OS·이미지 처리까지 검증하지 않았다.
 - DB·Supabase·Google OAuth·Realtime·CI·배포·성능·모바일 기능 UI는 미구현/미검증이다. 프로덕션 빌드는 성공했으나 pnpm start 서버 실행은 미검증이다.
-- 최초 검토 자료 제출 당시에는 사용자 확인 전이었다. 현재 환경 REVIEW는 승인되었으며 환경 커밋·push는 아직 성공 전이고 공통 UI 묶음은 TODO다.
+- 최초 검토 자료 제출 당시에는 사용자 확인 전이었다. 후속 환경 REVIEW 승인·커밋·push는 완료했고 공통 UI는 진행 중이다. UI 검증·확인·커밋 결과는 아직 기록하지 않는다.
 
 ## 6. 최초 제출의 최종 점검·확인 대기 이력
 
@@ -111,7 +112,7 @@ curl -i -X POST http://127.0.0.1:3001/api/health
 
 최초 제출에서는 사용자 요청과 [AGENTS.md](../../AGENTS.md)의 “플랜의 사용자 확인 지점에서는 반드시 멈춘다”는 규칙에 따라 여기서 확인을 기다렸다.
 
-## 7. 후속 사용자 승인·현재 커밋 대기
+## 7. 후속 사용자 승인·당시 커밋 대기 이력
 
 | 항목 | 실제 기록 |
 | --- | --- |
@@ -122,8 +123,27 @@ curl -i -X POST http://127.0.0.1:3001/api/health
 | 실제 전송 시각 | 사용자 메시지의 정확한 전송 시각은 별도 제공되지 않음. 기록 시각으로 추정하지 않음 |
 | 02-ENV-REVIEW | DONE. 후속 실제 사용자 응답과 위 문맥을 근거로 완료 |
 | 승인 기록 문서 점검 | PASS. 변경한 Markdown 3개·상대 링크 9개, 현재/다음 COMMIT APPROVED, REVIEW 완료, COMMIT/PUSH 미체크·UI TODO, 실제 말·시각 구분을 읽기 검사. Git 명령·제품 런타임 재검증은 이 기록 작업에서 수행하지 않음 |
-| 현재·다음 재개 ID | 02-ENV-COMMIT / APPROVED(커밋 대기) |
-| 다음 실행 순서 | 실제 diff·제외 파일 확인 → 02-ENV-COMMIT → 성공 시 02-GIT-PUSH. 예정 대상 origin/codex/step02-environment, 기존 push 허용 유지 |
-| 미완료 | 02-ENV-COMMIT·02-GIT-PUSH는 성공 전이며 완료 표시하지 않음. 공통 UI는 TODO. 실제 커밋 해시·push 결과는 명령 성공 후 기록 |
+| 승인 기록 당시 현재·다음 재개 ID | 02-ENV-COMMIT / APPROVED(커밋 대기) |
+| 당시 다음 실행 순서 | 실제 diff·제외 파일 확인 → 02-ENV-COMMIT → 성공 시 02-GIT-PUSH. 대상 origin/codex/step02-environment, 기존 push 허용 유지 |
+| 당시 미완료 | 02-ENV-COMMIT·02-GIT-PUSH는 성공 전이라 완료 표시하지 않았고 공통 UI는 TODO였다. 이후 성공 결과는 아래 8절에 기록 |
 
 이번 승인 기록은 환경 범위의 확인 완료를 뜻한다. 앞서 기록한 실제 검사·미검증·도구 제한과 학습 이해 미확인 상태는 유지한다.
+
+## 8. 환경 커밋·push 실행 결과와 다음 작업
+
+| 항목 | 실제 결과 |
+| --- | --- |
+| 02-ENV-COMMIT | DONE. d9b9f8ffdfef542d47c60d24fb6a5f4770cca011 |
+| 커밋 메시지·범위 | chore: initialize Next.js environment and project docs. 승인된 환경 코드·설정·STEP 01 문서·플랜·검토 자료 31개 파일 |
+| 실제 커밋 시각 | 2026-10-26 16:08:33 +09:00. git show의 %cI 출력으로 확인 |
+| 02-GIT-PUSH | DONE. git push --set-upstream origin codex/step02-environment exit 0 |
+| 원격 결과 | HEAD·upstream·ls-remote 해시가 위 환경 커밋과 동일. origin/codex/step02-environment 추적 설정, push 직후 작업 트리 clean |
+| push 정책 | 기존 사용자 허용 “확인 후 커밋하면 지정한 원격 브랜치로 push 허용”을 적용. 같은 확인 범위의 재승인 요청·강제 push 없음 |
+| 기본 브랜치 관측 | 최초 main 메타데이터에서 첫 push 뒤 GitHub API default_branch가 codex/step02-environment로 조회됨. 별도 기본 브랜치 변경 명령은 실행하지 않음 |
+| 결과 기록 시각 | 2026-10-26 16:09:59 +09:00 (Asia/Seoul), clock 2026-10-26 07:09:59 UTC 변환. 실제 커밋 시각과 구분 |
+| 현재·다음 작업 ID | 02-UI-01 / IN_PROGRESS. 공통 레이아웃·메뉴·기본 상태 UI 진행 |
+| 다음 사용자 확인 | 02-UI-REVIEW. 공통 UI는 아직 검증·사용자 확인·커밋 전이며 STEP 02 전체 완료가 아님 |
+| 후속 기록 처리 | 이 성공 해시·push 결과를 기록한 문서 변경은 다음 예정 02-UI-COMMIT에 포함. 해시 기록용 재커밋은 만들지 않음 |
+| 후속 문서 점검 | PASS. 수정한 Markdown 5개·상대 링크 23개, 환경 REVIEW/COMMIT/PUSH DONE, 현재·다음 UI-01 IN_PROGRESS, UI REVIEW/COMMIT 미체크, 전체 해시·실제 커밋 시각과 기록 시각의 구분 확인. 이 문서 갱신 작업에서는 stage·commit·push를 실행하지 않음 |
+
+push 직후 clean은 당시 상태다. 이후 공통 UI 코드와 이 후속 문서가 수정되고 있으므로 현재 작업 트리까지 clean이라고 기록하지 않는다. 환경 단계의 검증을 새로운 UI 변경의 검증 성공으로 자동 승계하지 않는다.

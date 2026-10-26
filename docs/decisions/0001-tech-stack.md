@@ -50,7 +50,7 @@ Supabase Auth는 인증 SDK와 API를 제공하며 Google 로그인을 지원한
 | --- | --- |
 | 브라우저 → Next.js API | 버튼 표시와 관계없이 서버가 신원·입력·작성자/수신자/참여자 권한을 확인한다. 요청 본문의 `authorId`를 신원으로 믿지 않는다 |
 | 서버 → Drizzle → DB | 직접 DB 연결 역할의 권한을 조사한다. Supabase Auth 사용자의 신원이 연결에 자동 적용된다고 가정하지 않으며, 허용된 대상 조건을 서버에서 적용한다 |
-| 브라우저 → Supabase Data API | 직접 테이블을 조회하는 별도 경로다. 기본안은 업무 테이블의 직접 접근을 허용하지 않고, 실제 노출 스키마·GRANT·REVOKE·RLS를 STEP 03·05·08에서 확인한다 |
+| 브라우저 → Supabase Data API | 직접 테이블을 조회하는 별도 경로다. 기본안은 업무 테이블의 직접 접근을 허용하지 않고, 노출·역할 원칙은 STEP 03·05에서 준비하고 테이블별 초기 GRANT·REVOKE·RLS는 각 기능의 생성 시점에 검증한다. STEP 08은 그때 존재하는 구조의 접근 경계를 점검한다 |
 | 브라우저 → Realtime | DB 테이블 접근 정책과 별도로 방별 구독 권한을 확인한다. 참여자만 private 채널을 수신하도록 구성하고 비참여자 C의 실제 거부를 검증한다 |
 
 RLS(Row Level Security)는 DB의 행마다 접근 조건을 적용하는 기능이다. API 서버가 사용한 DB 역할에 따라 동작이 달라질 수 있으므로 “RLS를 켰으니 모든 경로가 안전하다”고 결론 내리지 않는다. DB 직접 연결, Data API, Realtime 각각을 검증한다. [Supabase RLS](https://supabase.com/docs/guides/database/postgres/row-level-security)
@@ -67,7 +67,7 @@ private 채널에는 `realtime.messages`의 수신 정책과 인증된 클라이
 
 - 패키지 버전·Node.js·패키지 매니저·스타일 구현 방식: STEP 02에서 환경과 생성기 옵션을 확인한 뒤 기록한다.
 - Supabase 프로젝트·DB 역할·런타임/migration 연결·비밀값 입력: STEP 03·05에서 각각 준비와 연결 성공을 구분한다.
-- 스키마·SQL·인덱스·성능 수치: STEP 04 이후 실제 설계·검증으로 정한다. 이 문서에 측정 결과는 없다.
+- 스키마·SQL·인덱스·성능 수치: STEP 04 이후 실제 설계·검증으로 정한다. 이 문서에 측정 결과는 없다. 후속 개정 3에서는 STEP 04·05를 읽기/기록·도구 준비로 줄이고 업무 테이블의 설계·적용·ERD 전후 기록은 STEP 06부터 기능별로 수행한다.
 - Auth·DB·Data API·Realtime 연결과 권한 검증: 모두 미실행이다. 공식 문서 읽기는 서비스 연결이나 테스트 성공의 증거가 아니다.
 - 배포·CI 도구는 원안의 Vercel·GitHub·Vitest·Playwright·GitHub Actions를 따르되 현재 단계에서 설치·계정 작업을 진행하지 않는다.
 

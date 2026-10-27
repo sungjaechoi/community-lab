@@ -1,10 +1,12 @@
 # STEP 03 검토 자료 · 개발 DB와 분리 테스트 기반
 
-작성일: 2026-10-27 (Asia/Seoul). **개발 DB·Next.js·분리 테스트 DB/Auth의 실제 읽기를 확인했고 DBeaver Test Connection 성공·Finish도 사용자 보고로 확인했다.** 후속 응답으로 `03-REVIEW` 전체 승인을 받았다. 아래 제출 당시 자료·검증 한계는 이력으로 보존하며 커밋·push 결과는 성공 후 별도로 기록한다.
+작성일: 2026-10-27 (Asia/Seoul). **개발 DB·Next.js·분리 테스트 DB/Auth의 실제 읽기를 확인했고 DBeaver Test Connection 성공·Finish도 사용자 보고로 확인했다.** 후속 응답으로 `03-REVIEW` 전체 승인을 받았고 커밋·push를 마쳤다. 아래 제출 당시 자료·검증 한계는 이력으로 보존한다.
 
 ## 현재 결과와 직접 확인 방법
 
-전체 실제 응답: “03-REVIEW 전체 확인했어. 커밋·push하고 STEP 04 진행해줘. 04-REVIEW에서 결과를 보여주고 멈춰줘.” 승인 기록 시각은 2026-10-27 09:57:34 +09:00이며 정확한 전송 시각은 제공되지 않았다. `03-REVIEW` DONE, `03-COMMIT` APPROVED로 기록하고 승인 범위의 커밋·허용된 같은 브랜치 push 뒤 STEP 04를 진행한다. 같은 범위의 커밋·push 허가를 다시 묻지 않는다.
+전체 실제 응답: “03-REVIEW 전체 확인했어. 커밋·push하고 STEP 04 진행해줘. 04-REVIEW에서 결과를 보여주고 멈춰줘.” 승인 기록 시각은 2026-10-27 09:57:34 +09:00이며 정확한 전송 시각은 제공되지 않았다. `03-REVIEW`와 `03-COMMIT`은 DONE이다.
+
+승인된 28개 파일을 `0dcd4b59f74e52a73dd198ecc301a45e29e9c540` (`chore: prepare Supabase connections and isolated test environment`)로 커밋했다. 실제 Git 시각은 2026-10-27 10:00:12 +09:00, 같은 브랜치 `codex/step02-environment` push는 exit0·원격 해시 일치·직후 clean이었다. 이 성공 기록은 다음 예정 04-COMMIT에 포함한다. 현재 확인 자료는 [STEP 04](step04.md)다.
 
 | 구분 | 실제 결과·확인 방법 |
 | --- | --- |
@@ -21,11 +23,11 @@
 | 테스트 DB/Auth | `pnpm test:env:check` exit0. local-test·DB/역할 postgres·Auth 스키마 true·Auth 설정 HTTP200·읽기 전용 true. 개발 DB와 다른 대상 |
 | 재시작 재현 | test:env:start → check → stop → start → check 모두 exit0. CLI의 기본 서버 키 출력은 메모리에서 처리하고 필요한 값만 제외된 .env.test.local에 반영 |
 | 초기 접근 설정 | Data API 노출·자동 공개 끔·ensure_rls 및 기본 ACL 실제 조사. 기능에서 첫 테이블을 만들 때 명시적 REVOKE/GRANT/RLS 적용·검증 계획 보존 |
-| Git·비밀 | STEP03 미커밋·staged0. .env.local·.env.test.local·인증서·로컬 CLI 제외. DB 비밀번호·서버 키·전체 URI를 기록하지 않음 |
+| Git·비밀 | 제출 당시 미커밋, 후속 전체 확인 후 위 해시로 커밋·push 성공. .env.local·.env.test.local·인증서·로컬 CLI 제외. DB 비밀번호·서버 키·전체 URI를 기록하지 않음 |
 
 설정 검사 10개와 입력 도구의 별도 4가지 보존/출력 검사가 통과했다. 타입·린트·빌드도 통과했으며 세부 최종 결과는 진행 기록을 따른다. 실제 역할 분리는 STEP 05, Google 로그인·업무 테이블과 권한 검사는 해당 기능에서 수행한다. 설명 제공과 사용자의 이해 완료는 구분한다.
 
-## 이번에 확인할 항목
+## 제출 당시 확인 항목 · 후속 전체 승인 완료
 
 1. 입력 도구에 이미 값이 있으면 재입력 없이 보존한다는 안내와 개발 DB의 실제 연결 결과.
 2. 런타임 transaction / 관리·migration session의 용도, 공식 CA와 SSL 강제 설정.
@@ -33,7 +35,7 @@
 4. 로컬 테스트 DB/Auth의 분리·시작/중지 명령·개발 DB 주소 거부. 상세는 [테스트 기반 안내](../../test-infra/README.md).
 5. 업무 테이블을 해당 기능에서 설계·생성하고 ERD를 갱신하는 기존 플랜 유지.
 
-현재·다음 재개 ID는 **03-REVIEW**이며 전체 확인 후 ID는 **03-COMMIT**이다. DBeaver 연결 보고는 기록했고, STEP 03 전체 결과를 확인받은 뒤 커밋한다. 사용자 확인 전에는 STEP 04로 진행하지 않는다.
+제출 당시 현재·다음 ID는 03-REVIEW, 확인 후 ID는 03-COMMIT이었다. 이후 위 전체 승인·커밋·push 성공을 확인하고 STEP 04로 진행했다. 현재·다음 재개 ID는 **04-REVIEW**다.
 
 후속 실제 응답: “SSL 선택할때 다운로드 했고 Test Connection 이상없어서 피니쉬 눌렀어”. 결과 기록 시각은 2026-10-27 09:51:09 +09:00이며 정확한 전송 시각은 제공되지 않았다. 이 응답은 DBeaver 확인 범위로 기록했고 STEP 03 전체 승인으로 확대하지 않았다.
 

@@ -9,25 +9,25 @@
 | 규칙·정식 플랜 | 앱 AGENTS.md · docs/work-plan.md |
 | 진행 원본 | 앱 docs/work-status.md. 상위 기록·플랜에는 이동 안내만 유지 |
 | 이관 근거 | STEP 01 문서 6개+전체 플랜 1개 이동 직후 SHA-256 일치, 기존 규칙·생성기 지침 병합 보존 |
-| Git·브랜치 | 앱 .git · codex/step02-environment, upstream origin/codex/step02-environment. 환경·UI 커밋/push 성공. 최근 50c7f91, STEP 03 연결 준비는 미커밋 |
+| Git·브랜치 | 앱 .git · codex/step02-environment, upstream origin/codex/step02-environment. STEP 03 커밋 0dcd4b5·push 성공·원격 해시 일치. STEP 04 문서는 미커밋 |
 | remote | origin = https://github.com/sungjaechoi/community-lab.git |
 | 개발·테스트·운영 | 로컬 http://127.0.0.1:3001. 개발 DB·Next.js 읽기 성공, 분리 로컬 테스트 DB/Auth 준비·재시작 검사 성공. 운영/배포 미준비 |
-| 마지막 확인 시각 | 2026-10-27 09:51:09 +09:00 (Asia/Seoul). DBeaver Test Connection 성공·Finish 사용자 보고 기록, STEP 03 전체 REVIEW 확인 대기 |
+| 마지막 확인 시각 | 2026-10-27 10:07:22 +09:00 (Asia/Seoul). STEP 03 커밋·push 성공, STEP 04 실제 구조·읽기·기록 기준 준비·문서 검사 통과. 04-REVIEW 확인 대기 |
 
 ## 현재 위치와 다음 행동
 
 | 항목 | 현재 값 |
 | --- | --- |
-| 현재 STEP·묶음 | STEP 03 Supabase·환경값·DB 연결. STEP 02 UI 커밋·push 성공 후 진입 |
-| 현재 ID·상태 | 03-COMMIT / APPROVED |
-| 실제 마지막 완료 ID | 03-SETUP-08 DBeaver 연결 검사 성공·Finish 사용자 확인을 후속 기록. 03-SETUP-01~11 준비/검증 완료, REVIEW 사용자 전체 확인·COMMIT은 미완료 |
-| 이번 요청 범위 | 03-REVIEW 전체 승인 기록 → STEP03 커밋·push → STEP04 현재 구조·ERD 읽기·기능별 변경 기록 기준 준비 → 04-REVIEW에서 정지 |
-| 다음 사용자 확인 ID | 04-REVIEW |
-| 다음 작업·재개 ID | 03-COMMIT |
-| 다음 행동·담당 | 에이전트: 승인된 STEP03 파일 명시 stage·diff 확인·커밋·허용된 같은 브랜치 push. 성공 후 04-01 시작 |
-| 확인 후 순서 | 계정·값 입력 → 실제 runtime/migration·Next.js·관리 연결 검증 → 03-REVIEW 대기 → 사용자 확인 후 03-COMMIT → 허용된 같은 브랜치 push → 04-01 |
-| 차단 요인 | 현재 기술 차단 없음. STEP03 전체 REVIEW 승인 수신. 실제 커밋·push 성공 전 STEP04 작업을 시작하지 않음 |
-| 학습 상태 | 기존 환경·UI 설명 보존. STEP 03 변수/연결 방식·읽기 트랜잭션·오류 구분·면접 질문을 supabase-setup.md에 제공. 이해/복습 완료는 확인하지 않음 |
+| 현재 STEP·묶음 | STEP 04 현재 ERD 읽기·기능별 설계 변화 기록 기준 |
+| 현재 ID·상태 | 04-COMMIT / APPROVED |
+| 실제 마지막 완료 ID | 04-08. 04-01~08 조사·설명·검토 자료 준비 완료. STEP 03은 전체 확인·커밋·push 완료. STEP 04 REVIEW·COMMIT은 미완료 |
+| 이번 요청 범위 | 04-REVIEW 전체 승인 기록 → STEP04 커밋·push → STEP05 도구·역할별 연결 준비. 업무 테이블 없이 05-REVIEW에서 정지 |
+| 다음 사용자 확인 ID | 05-REVIEW |
+| 다음 작업·재개 ID | 04-COMMIT |
+| 다음 행동·담당 | 에이전트: 승인된 STEP04 파일 명시 stage·diff 확인·커밋·허용된 같은 브랜치 push. 성공 후 05-01 시작 |
+| 확인 후 순서 | 04-COMMIT → 허용된 같은 브랜치 push. STEP 05는 후속 요청 범위에 따라 05-01부터 도구·역할별 연결 준비 |
+| 차단 요인 | 기술 차단 없음. STEP04 전체 승인 수신. 실제 커밋·push 성공 후 STEP05 시작 |
+| 학습 상태 | 기존 설명 보존. decisions/0002-database-design.md에 ERD·PK/FK·NULL·제약·서버/DB/트랜잭션 책임·면접 질문 제공. 이해/복습 완료는 확인하지 않음 |
 
 ## 현재 묶음 결과
 
@@ -71,11 +71,35 @@
 | 03-SETUP-10 | DONE | Data API 활성·graphql_public/public 노출·자동 공개 끔, ensure_rls 트리거 enabled O, public 기본 ACL 실제 조사. postgres 소유 새 테이블에 anon 등 Dxtm 잔존: 기능별 첫 migration에서 명시적 권한 회수·부여/RLS 계획. 업무 테이블 생성·권한 SQL 변경 없음 |
 | 03-SETUP-11 | DONE | 변수·실제 성공/실패·TLS 수정·기본 권한·테스트 기반·DBeaver 남은 작업·실행/기대 결과를 문서화. 상세 reviews/step03.md·supabase-setup.md·test-infra/README.md |
 | 03-REVIEW | DONE | “03-REVIEW 전체 확인했어. 커밋·push하고 STEP 04 진행해줘. 04-REVIEW에서 결과를 보여주고 멈춰줘.” 전체 범위 승인 수신·아래 기록 |
-| 03-COMMIT | APPROVED | 명시한 STEP03 파일 28개만 커밋·같은 브랜치 push 예정. 실제 해시는 성공 후 다음 예정 기록에 반영 |
+| 03-COMMIT | DONE | 승인된 28개 파일. 0dcd4b59f74e52a73dd198ecc301a45e29e9c540, chore: prepare Supabase connections and isolated test environment, 2026-10-27 10:00:12 +09:00. 같은 브랜치 push exit0·원격 해시 일치·직후 clean |
+| 04-01 | DONE | 개발 session 연결의 READ ONLY 메타데이터 조회. public 관계0, auth.users.id uuid·NOT NULL·PK, 시스템 외 스키마8개 관찰. 사용자 데이터 행 조회 없음 |
+| 04-02 | DONE | ERD·행·컬럼·PK/FK·NULL/UNIQUE/CHECK를 가상 BOX/ITEM 그림·짧은 SQL로 설명. 실제 모델/실행 결과와 구분 |
+| 04-03 | DONE | erd.md를 실제 업무 테이블 없음·관리형 Auth 식별자 부분 그림으로 작성. Auth 재생성·업무 테이블 추가 없음 |
+| 04-04 | DONE | erd-history/README.md에 이전→후보→적용 후 그림·WHY·SQL·검증 기록 기준. 미래 기능별 빈 파일 없음 |
+| 04-05 | DONE | 일반 입력 예와 트랜잭션 예로 서버 입력/권한·DB 제약·일괄 성공/실패 책임 설명. 실제 기능의 세부 정책은 미결정 |
+| 04-06 | DONE | schema/SQL·초기 GRANT/REVOKE/RLS 검토→분리 적용·검증→개발 적용·재확인→현재 ERD 갱신 기준. 실패는 조사·보완 후 재검증 |
+| 04-07 | DONE | profiles06·posts07·comments09·친구/쪽지10·채팅11의 최초 설계 시점 확인. 미래 상세 구조 미설계 |
+| 04-08 | DONE | STEP 05 도구·역할별 읽기 연결과 연결하고 reviews/step04.md에 확인 방법·실제/미검증 결과 제공 |
+| 04-REVIEW | DONE | 전체 승인 수신. 실제 말·기록 시각은 아래 확인 표에 보존 |
+| 04-COMMIT | APPROVED | 승인된 STEP04 문서·읽기 전용 조사 SQL·후속 기록 9개 파일 커밋·같은 브랜치 push 예정. 해시는 성공 후 기록 |
 | STEP 12 RBAC | DEFERRED | 승인된 P-08의 선택 보류 유지 |
 | 플랜 개정 3 문서 정비 | DONE | 기능별 설계·ERD 변화 학습 요청을 반영. 실제 테이블·ERD·migration 작업은 미수행이며 UI 승인과 구분 |
 
-개별 준비 작업 DONE은 STEP 전체 승인·커밋을 뜻하지 않는다. STEP 02는 UI 확인·커밋·허용 push까지 완료했다. STEP 03 준비/연결 검증은 마쳤고 전체 REVIEW 승인·COMMIT이 미완료다. 확인 전 다음 STEP으로 진행하지 않는다.
+개별 준비 작업 DONE은 STEP 전체 승인·커밋을 뜻하지 않는다. STEP 03은 전체 REVIEW·COMMIT·허용 push까지 완료했다. STEP 04는 전체 REVIEW 확인을 받았고 COMMIT이 미완료다. STEP 05는 시작하지 않았다.
+
+## STEP 04 사용자 전체 확인 기록
+
+| 항목 | 현재 값 |
+| --- | --- |
+| REVIEW·범위 | 04-REVIEW / 실제 현재 구조·ERD 읽기 예·전후 설계 기록·기능별 최초 설계 시점 |
+| 확인 자료 | [검토 자료](reviews/step04.md) · [현재 ERD](erd.md) · [읽기·설계 기준](decisions/0002-database-design.md) · [기능별 이력 기준](erd-history/README.md) |
+| 기대·실제 결과 | 현재 그림은 업무 테이블 없음 + auth.users.id 일부. public 관계0·id uuid/NOT NULL/PK를 실제 읽기 전용 조회로 확인. 가상 예는 현재 ERD와 분리 |
+| 실행·재확인 | erd-inspection.sql 전체를 같은 개발 DB의 SQL Editor/DBeaver에서 실행하면 문맥·관계 개수·public0·Auth PK 결과를 비교할 수 있음. 실제 CLI 실행 exit0·read_only=on |
+| 실제 사용자 확인 | “04-REVIEW 전체 확인했어. 커밋·push하고 STEP 05 진행해줘. 업무 테이블은 아직 만들지 말고 도구·역할별 연결을 준비한 뒤, 05-REVIEW에서 결과를 보여주고 멈춰줘.” |
+| 미정·미검증 | 업무 테이블 컬럼·관계·삭제 정책은 해당 기능에서 결정. 가상 DDL 실행·로그인·업무 권한/제약·동시성 검증은 미수행. 이해 완료도 미확인 |
+| 현재·다음 ID | 04-COMMIT / APPROVED. 성공 후 05-01, 다음 사용자 확인 05-REVIEW |
+| 자료 기록 시각 | 2026-10-27 10:07:22 +09:00 (Asia/Seoul). 사용자 확인·메시지 전송 시각이 아님 |
+| 전체 승인 기록 시각 | 2026-10-27 10:11:56 +09:00. 정확한 메시지 전송 시각은 제공되지 않음 |
 
 ## STEP 03 사용자 전체 확인 기록
 
@@ -88,7 +112,7 @@
 | 사용자 작업 | DBeaver 연결 인계 해소. 실제 말 “SSL 선택할때 다운로드 했고 Test Connection 이상없어서 피니쉬 눌렀어”. 정확한 전송 시각 미제공, 결과 기록 2026-10-27 09:51:09 +09:00 |
 | 검증된 결과 | env:check·runtime/migration 읽기·Next.js 실제 DB200, 두 구간 TLS true, SQL Editor 읽기, local-test DB/Auth200·중지/재기동·설정10개·입력 도구 보존4경우·타입/린트/빌드 통과 |
 | 미검증·제한 | DBeaver 별도 수동 SQL·세부 SSL 설정의 독립 재검사, 실제 사용자 로그인/Google OAuth, 업무 데이터·제약/RLS·트랜잭션/동시성·Realtime·운영/다른 OS는 미검증 또는 후속 범위 |
-| 현재·다음 ID | 03-COMMIT / APPROVED. 실제 커밋·push 뒤 04-01 시작. 다음 확인은 04-REVIEW |
+| 확인 후 결과 | 03-COMMIT DONE·push 성공, 실제 해시 0dcd4b59f74e52a73dd198ecc301a45e29e9c540. 이후 STEP 04 진입·현재 04-REVIEW 대기 |
 | 전체 승인 기록 시각 | 2026-10-27 09:57:34 +09:00 (Asia/Seoul). 정확한 메시지 전송 시각은 제공되지 않음 |
 
 ## 완료한 UI 사용자 확인 기록
@@ -134,7 +158,7 @@
 | remote·push · 에이전트 | 02-GIT-PUSH DONE. origin의 같은 브랜치로 push·upstream 설정·원격 해시 일치 확인 | 후속 커밋도 정해진 정책과 해당 사용자 확인 범위로 진행 |
 | 조직/저장소 권한 · 사용자(실제 거부 시) | 현재 권한 거부를 확인한 것은 아님 | 실제 오류 시 저장소 Settings/조직 접근 화면의 필요 항목만 인계. 보호 정책 우회 없음 |
 | Supabase 로그인·신규 대상 | DONE. “신규”, “로그인 완료 현재 대시보드에 위치해 있어”, “프로젝트 생성 완료.” 수신·실제 계정/개발 프로젝트 확인 | 실제 전송 시각 미제공. 개인 Free 조직·서울·Healthy. 신규 DB 비밀번호 입력·생성 제출은 사용자 직접 처리 |
-| 환경값·실제 DB·관리 도구 | DONE. DB 입력·runtime/migration·Next.js·SQL Editor 성공, DBeaver Test Connection 성공·Finish는 사용자 보고로 확인 | 비밀번호 재입력 불필요. 별도 DBeaver 수동 SQL은 미실행으로 남김. 현재는 STEP 03 전체 REVIEW 확인 대기 |
+| 환경값·실제 DB·관리 도구 | DONE. DB 입력·runtime/migration·Next.js·SQL Editor 성공, DBeaver Test Connection 성공·Finish는 사용자 보고로 확인 | 비밀번호 재입력 불필요. 별도 DBeaver 수동 SQL은 미실행으로 남김. STEP 03 전체 확인·커밋·push 완료 |
 | 분리 테스트 DB·Auth / Data API | DONE. 로컬 DB/Auth 읽기·Auth HTTP200·중지/재기동·개발 대상 거부 검사 통과, Data API 조사도 완료 | 반복 실행은 test:env:start/check/stop, 상세 test-infra/README.md. 실제 사용자 로그인·업무 권한/제약·Realtime 검사는 해당 기능에서 수행 |
 | Google OAuth·배포·CI | TODO | 각각 STEP 06·14·15에서 실제 인계 |
 
@@ -181,24 +205,24 @@ GitHub 계정 인계는 development-setup.md 6절, Supabase의 실제 화면·�
 | 항목 | 현재 값 |
 | --- | --- |
 | 시작 전 staged·사용자 변경 | 저장소 없음. 초기 사용자 문서 보존·승인 이력 기록 후 이관 |
-| 현재 이력·작업 트리 | 환경 커밋 1개·원격 반영 완료. push 직후 clean을 확인했으며 이후 UI 코드·후속 문서 변경 진행 중 |
+| 현재 이력·작업 트리 | 환경·UI·STEP03 커밋 3개·원격 반영 완료. STEP03 push 직후 clean 확인 후 STEP04 문서 변경. 현재 staged0 |
 | 원격·현재 브랜치 | origin https://github.com/sungjaechoi/community-lab.git · codex/step02-environment |
 | push 정책·대상 | “확인 후 커밋하면 지정한 원격 브랜치로 push 허용”. 실제 대상 origin/codex/step02-environment, 같은 승인 범위에 재승인 요청 없음 |
-| 최근 COMMIT ID·실제 해시 | 02-ENV-COMMIT DONE · d9b9f8ffdfef542d47c60d24fb6a5f4770cca011 · chore: initialize Next.js environment and project docs · 2026-10-26 16:08:33 +09:00 |
-| push 실행·원격 반영 | 02-GIT-PUSH DONE. --set-upstream push exit 0, HEAD·upstream·ls-remote 해시 일치. 실행 결과 기록 시각 2026-10-26 16:09:59 +09:00 |
-| 오류·차단 | 환경 커밋·push 오류 없음. 강제 push·신원/서명/훅/보호 정책 변경 없이 성공 |
-| 커밋 범위 | 승인된 기본 앱·설정·lockfile·문서·검토 이미지 31개 파일. 당시 목록은 reviews/step02-env.md 5절 |
-| 후속 문서 기록 | 성공 해시·push 결과와 UI 진행 상태를 적은 변경은 다음 예정 02-UI-COMMIT에 포함. 해시 기록용 재커밋 금지 |
+| 최근 COMMIT ID·실제 해시 | 03-COMMIT DONE · 0dcd4b59f74e52a73dd198ecc301a45e29e9c540 · chore: prepare Supabase connections and isolated test environment · 2026-10-27 10:00:12 +09:00 |
+| push 실행·원격 반영 | git push origin codex/step02-environment exit0. HEAD·upstream·ls-remote 해시 일치. 10:06:13 +09:00 기록 시 원격 동일 해시 재확인 |
+| 오류·차단 | STEP03 커밋·push 오류 없음. 강제 push·신원/서명/훅/보호 정책 변경 없이 성공 |
+| 커밋 범위 | 승인된 STEP03 설정·연결 코드·테스트 기반·문서·이미지 28개 파일. 실제 환경값·CA·로컬 CLI 제외 |
+| 후속 문서 기록 | STEP03 성공 해시·push 결과와 STEP04 준비 기록은 다음 예정 04-COMMIT에 포함. 해시 기록용 재커밋 금지 |
 | 제외·상위 변경 | .env 실제값·node_modules·.next·생성 타입 제외. 시작 폴더 이동 안내는 앱 저장소 밖 |
 
 ## 기존 기록과 ID 대응·재개 메모
 
 - 초기 루트 work-status.md 템플릿 → 시작 docs/work-status.md → 앱 docs/work-status.md로 실제 단계에 따라 이관. 이전 완료·실제 승인 이력은 reviews/step01.md에 보존.
 - 이번 앱 변경: src 기본 화면·layout·CSS·health, package scripts/engine·.nvmrc·.gitignore·.env.example, README·AGENTS·docs 이관/기록. 생성기 설정·lockfile 보존. 상위에는 이동 안내만 둠.
-- WHY·설정·면접 자료: development-setup.md와 ui/foundation.md. 현재 사용자 확인: reviews/step02-ui.md. 환경 확인은 reviews/step02-env.md에 보존.
+- WHY·설정·면접 자료: development-setup.md·ui/foundation.md·supabase-setup.md·decisions/0002-database-design.md. 현재 사용자 확인: reviews/step04.md. 이전 확인 이력도 reviews/에 보존.
 - 알려진 제한: ESLint 9 지원 종료 경고·일부 전이 플러그인의 10 peer 미선언. 생성기 조합으로 검사 통과, 강제 호환 처리 없음. native 설치 스크립트 제외는 현재 기기 검증만 통과.
 - 선택 보류: 승인된 P-06 탈퇴 UI·P-08 추가 기능·STEP 12 RBAC 유지.
-- 다음 ID·첫 행동: 02-UI-REVIEW / WAITING_USER_REVIEW. 실제 공통 UI를 사용자에게 확인받고 수정 요청이면 같은 REVIEW에서 재검증. 확인 뒤 02-UI-COMMIT.
+- 다음 ID·첫 행동: 04-REVIEW / WAITING_USER_REVIEW. 현재 ERD·읽기 예·기능별 변경 기록 기준을 확인받고 수정 요청이면 같은 REVIEW에서 보완. 확인 뒤 04-COMMIT.
 
 ### Git 연결 재확인 당시 이력
 
@@ -287,3 +311,14 @@ GitHub 계정 인계는 development-setup.md 6절, Supabase의 실제 화면·�
 - 승인·재개 구분: 이번 플랜 정비 요청은 UI 결과 승인이 아니다. 현재·다음 ID는 02-UI-REVIEW / WAITING_USER_REVIEW, 확인 후 ID는 02-UI-COMMIT이다. 새 DATA REVIEW나 별도 승인 묶음은 추가하지 않았다.
 - 미수행: 앱 코드·의존성·DB 변경, migration 적용, 현재 ERD 작성, 커밋·push. 문서 변경이므로 타입·린트·빌드·DB 검증은 새로 실행하지 않는다.
 - 최종 문서·보존 검사: Python 일회성 검사 PASS (exit 0). 작업 ID 259개의 순서·기존 완료 31개 불변, 보호한 소스/설정/이미지 39개 지문 일치, Markdown 14개·내부 링크/이미지 64개 정상. STEP 04·05 준비 범위와 기능별 최초 설계/이력 위치, 현재·다음 UI REVIEW 대기·UI COMMIT TODO를 확인했다. HEAD·staged는 변경 전과 같으며 DB/ERD 구현 파일을 만들지 않았다. 문서 변경의 검사이며 새 제품 동작 검증이 아니다.
+
+## STEP 03 커밋·push 성공과 STEP 04 검토 제출 · 2026-10-27
+
+- STEP 03 전체 승인 원문·기록 시각은 위 확인 표와 reviews/step03.md에 보존했다. 승인된 28개 파일만 stage하고 실제 diff·비밀 제외를 확인한 뒤 03-COMMIT을 수행했다. 0dcd4b59f74e52a73dd198ecc301a45e29e9c540, chore: prepare Supabase connections and isolated test environment, 실제 Git 시각 2026-10-27 10:00:12 +09:00이다.
+- 같은 브랜치 push exit0·HEAD/upstream/원격 해시 일치·직후 clean을 확인했다. 10:06:13 +09:00 원격 조회도 동일했다. 서명·훅·보호 정책 변경이나 강제 push 없이 성공했으며 환경값·CA·로컬 CLI는 제외했다. 이 성공 기록은 다음 예정 04-COMMIT에 포함한다.
+- 04-01~08: 실제 개발 DB의 메타데이터만 REPEATABLE READ READ ONLY로 읽었다. session 연결·DB/역할 postgres·PostgreSQL17.11·read_only=on·exit0. 시스템 외 스키마8개, public 관계0, auth.users.id uuid·NOT NULL·PK, users_pkey 검증 true를 확인했다. 사용자 데이터 행·비밀값은 조회/출력하지 않았다.
+- 새 파일 5개: docs/erd.md, docs/erd-inspection.sql, docs/decisions/0002-database-design.md, docs/erd-history/README.md, docs/reviews/step04.md. 현재 구조와 가상 읽기 예를 구분하고 변경 전→후보·WHY→분리 검증→개발 적용·재확인→현재 그림 기록 순서·면접 질문을 제공했다. 미래 기능 문서·테이블·migration은 만들지 않았다.
+- 갱신 파일 4개: README.md, docs/work-plan.md, docs/work-status.md, docs/reviews/step03.md. STEP03 실제 성공·STEP04 개별 작업 완료·사용자 확인 대기를 구분했다. 전체 묶음 완료나 이해 완료로 처리하지 않았다.
+- 실제 문서·보존 검사 PASS(exit0): Markdown21개·내부 링크/이미지110개 정상, 기존 ID259개 순서 보존·중복 없음·체크54개, 기존 소스/설정/이미지54개 SHA-256 일치. 신규 SQL은 BEGIN/SET LOCAL/SELECT 5개/COMMIT이며 DDL·업무 행 조회 없음. diff 공백 오류·변경 파일의 자격 증명 패턴 없음, HEAD0dcd4b5·staged0 유지.
+- 이번 변경은 문서와 읽기 전용 조사 SQL이다. 타입·린트·빌드는 재실행하지 않았고 STEP03 성공 근거를 보존한다. 실제 업무 제약·권한·트랜잭션/동시성·로그인·Realtime은 후속 기능 범위다.
+- 결과 기록 시각: 2026-10-27 10:07:22 +09:00. 현재·다음 04-REVIEW / WAITING_USER_REVIEW에서 멈춘다. 확인 후 ID는 04-COMMIT, STEP05 도구 준비 시작 ID는 05-01이다. STEP04 커밋·push·STEP05 작업은 수행하지 않았다.

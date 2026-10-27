@@ -102,6 +102,10 @@ export function readDatabaseSettings(env: Environment, target: ConnectionTarget,
 
 // DB 오류 객체에는 접속 정보가 포함될 수 있어 허용한 코드만 전달한다.
 export function safeFailure(error: unknown) {
+  // Drizzle wraps driver errors in cause. Preserve only the allowlisted category.
+  for (let depth = 0; depth < 3 && error instanceof Error && "cause" in error && error.cause; depth++) {
+    error = error.cause;
+  }
   if (error instanceof SetupError) return { code: error.code, message: error.message };
   const code = typeof error === "object" && error !== null && "code" in error ? String(error.code) : "";
   if (["28P01", "28000"].includes(code)) return { code: "DB_AUTH", message: "DB 사용자·비밀번호·프로젝트 접근을 확인하세요." };

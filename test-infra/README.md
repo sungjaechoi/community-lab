@@ -16,6 +16,17 @@ WHY: 이후 Auth·권한·제약·migration 검사를 개발 DB와 다른 저장
 
 ## 준비와 실행
 
+STEP 05에서 앱용 `community_lab_runtime`과 관리용 `postgres` 연결을 분리했다. 기존 관리 주소는 `MIGRATION_DATABASE_URL`, 전용 앱 주소는 `DATABASE_URL`이다. `start`·`sync`는 이미 준비한 전용 runtime 주소를 보존한다. 볼륨을 새로 만든 경우 역할은 다시 준비해야 한다. 일반적인 stop/start는 볼륨을 보존하며 이번 단계에서 reset은 수행하지 않았다.
+
+```bash
+pnpm test:env:start
+pnpm test:db:role:prepare
+pnpm test:db:config:check
+pnpm test:db:drizzle:check
+```
+
+역할 준비는 DB 역할 기반 설정을 변경하는 명령이다. 기존 `.secrets/runtime-test.json`의 제외된 복구 값을 재사용하며, 검사 명령은 읽기 전용이다. 업무 테이블·첫 migration 재현은 STEP 06에 남아 있다. [실제 역할·도구 결과](../docs/database-migrations.md)를 참고한다.
+
 Docker Desktop을 실행한다. 현재 기기에서는 Homebrew가 오래된 Command Line Tools로 CLI 설치를 거부해, [공식 CLI v2.122.0 배포](https://github.com/supabase/cli/releases/tag/v2.122.0)의 macOS ARM64 압축 파일을 받아 공식 `checksums.txt`와 SHA-256을 대조한 뒤 앱 `.tools/bin/supabase`에 설치했다. `.tools/`는 Git 제외다. 버전·체크섬 확인 없는 파일은 실행하지 않는다.
 
 다른 기기에서는 [공식 설치 안내](https://supabase.com/docs/guides/local-development/cli/getting-started)에 따라 **2.122.0**을 준비하면 된다. 실행 도구는 앱의 `.tools/bin/supabase`, 그다음 PATH의 `supabase`를 찾고 버전을 확인한다. Docker 실행 확인은 `docker info`, CLI 버전은 `.tools/bin/supabase --version` 또는 `supabase --version`이다.

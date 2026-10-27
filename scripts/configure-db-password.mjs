@@ -24,6 +24,18 @@ async function main() {
   });
   const passwords = entries.map(({ url }) => decodeURIComponent(url.password));
   const configured = passwords.map((password) => !!password && password !== "[YOUR-PASSWORD]");
+  const roles = entries.map(({ url }) => decodeURIComponent(url.username).split(".")[0]);
+  if (roles[0] === "community_lab_runtime" && roles[1] === "postgres") {
+    if (!configured.every(Boolean)) {
+      throw new Error("역할별 비밀번호는 별도 관리합니다. 기존 파일을 보존했습니다. pnpm db:role:prepare 안내를 확인하세요.");
+    }
+    console.log("앱 실행 역할과 관리 역할의 비밀번호가 각각 준비되어 있습니다. 서로 다른 값이 정상입니다.");
+    console.log("기존 .env.local을 유지했습니다. pnpm db:drizzle:check로 실제 역할별 연결을 확인하세요.");
+    return;
+  }
+  if (roles[0] !== "postgres" || roles[1] !== "postgres") {
+    throw new Error("역할별 비밀번호는 별도 관리합니다. 기존 파일을 보존했습니다. pnpm db:role:prepare 안내를 확인하세요.");
+  }
   if (configured.every(Boolean)) {
     if (passwords[0] !== passwords[1]) {
       throw new Error("두 DB 주소의 비밀번호 값이 다릅니다. 기존 파일을 유지했습니다. 로컬 설정을 확인하세요.");
@@ -81,6 +93,7 @@ main().catch((error) => {
     "먼저 Connect의 두 연결 주소를 준비하세요.",
     "비밀번호 자리표시자가 있는 주소만 입력할 수 있습니다. 기존 비밀번호는 덮어쓰지 않습니다.",
     "두 DB 주소의 비밀번호 값이 다릅니다. 기존 파일을 유지했습니다. 로컬 설정을 확인하세요.",
+    "역할별 비밀번호는 별도 관리합니다. 기존 파일을 보존했습니다. pnpm db:role:prepare 안내를 확인하세요.",
     "일부 DB 주소만 입력되어 있습니다. 기존 파일을 유지했습니다. 두 주소의 로컬 설정을 확인하세요.",
     "입력이 비었거나 두 값이 다릅니다. 파일은 변경하지 않았습니다.",
     "입력 중 환경 파일이 바뀌었습니다. 기존 변경을 보존하고 중단했습니다.",

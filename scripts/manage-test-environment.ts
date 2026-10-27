@@ -57,6 +57,17 @@ function syncEnvironment() {
   if (before && !/^LOCAL_SUPABASE_PROJECT_ID=community-lab-test$/m.test(before)) {
     throw new SetupError("TEST_ENV_EXISTS", "다른 테스트 환경 파일이 있습니다. 보존하고 중단했습니다.");
   }
+  const previousRuntime = /^DATABASE_URL=(.*)$/m.exec(before)?.[1];
+  if (previousRuntime) {
+    const previous = new URL(previousRuntime);
+    if (previous.username === "community_lab_runtime") {
+      readLocalTestSettings({ ...values, DATABASE_URL: previousRuntime }, "runtime");
+      values.DATABASE_URL = previousRuntime;
+    } else if (previous.username !== "postgres") {
+      throw new SetupError("TEST_ENV_EXISTS", "기존 runtime 역할이 다릅니다. 값을 보존하고 중단했습니다.");
+    }
+  }
+  values.COMMUNITY_LAB_DB_ENV = "test";
   let after = before;
   for (const [key, value] of Object.entries(values)) {
     const pattern = new RegExp(`^${key}=.*$`, "m");

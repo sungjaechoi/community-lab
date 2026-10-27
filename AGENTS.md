@@ -108,9 +108,10 @@
 - 린트: `pnpm lint` — `eslint . --max-warnings=0` 통과.
 - 빌드: `pnpm build` — Turbopack 프로덕션 빌드 통과.
 - 프로덕션 실행: `pnpm start --hostname 127.0.0.1 --port 3001` — 준비 화면·리다이렉트·개발 전용 경로 404·health 확인.
-- 설정 검사: `pnpm test:setup` — 환경값·대상·TLS·비밀 출력·개발/테스트 경계 10개 통과.
+- 설정 검사: `pnpm test:setup` — 환경값·대상·TLS·비밀 출력·개발/테스트·역할 경계 17개 통과.
 - 개발 DB: `pnpm env:check`·`pnpm db:check` — 공식 CA 적용 후 runtime/migration 읽기·TLS 인증서 검증 통과. Next.js 개발 진단도 실제 DB 연결 200 확인. 자세한 결과는 STEP 03 검토 자료를 따른다.
 - 분리 테스트: `pnpm test:env:start`·`pnpm test:env:check`·`pnpm test:env:stop` — 로컬 DB/Auth 기동·읽기·중지/재기동 확인. `.env.test.local`과 `test-infra/README.md`를 사용하며 개발 DB로 대체하지 않는다.
+- Drizzle: `pnpm db:config:check`·`pnpm test:db:config:check` — 설정 로딩 확인. `pnpm db:drizzle:check`·`pnpm test:db:drizzle:check` — 개발/분리 테스트의 runtime·migration 실제 읽기와 runtime 권한 거부 확인. STEP05는 업무 테이블·migration 미생성으로 generate/check/migrate 감싼 명령이 skipped이며 적용 검증 성공이 아니다.
 - 업무 통합 테스트 명령은 아직 없다. Node 22.15.1·pnpm 10.29.3에서 확인했고 자세한 근거·제한은 `docs/development-setup.md`, 현재 상태는 `docs/work-status.md`를 따른다.
 
 ## 생성기가 제공한 Next.js 지침

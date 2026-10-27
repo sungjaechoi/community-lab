@@ -2,7 +2,7 @@
 
 공개 글·댓글로 교류하고 친구와 쪽지·1대1 채팅을 나누는 학습용 커뮤니티다. 화면을 서버 입력·권한 검사와 PostgreSQL 저장까지 연결하고, 선택 이유와 검증 근거를 남긴다.
 
-STEP 01 정책·STEP 02 환경과 공통 UI·STEP 03 개발/테스트 연결 준비를 사용자 확인 후 커밋·push했다. 현재 **STEP 04에서 실제 현재 ERD와 기능별 설계 변화 기록 방식을 준비하고 `04-REVIEW` 확인을 기다리고 있다**. 개발 DB의 public 업무 테이블은 아직 없다. 사용자 로그인·게시글·친구·쪽지·채팅 기능은 후속 범위다. 현재 위치는 [진행 기록](docs/work-status.md)을 따른다.
+STEP 04까지 사용자 확인 후 커밋·push했다. 현재 **STEP 05에서 Drizzle 도구와 개발/분리 테스트의 역할별 연결을 준비하고 `05-REVIEW` 확인을 기다리고 있다**. 앱은 전용 community_lab_runtime, 구조 변경용 관리는 postgres 역할을 사용한다. 업무 테이블·업무 migration은 아직 없다. 사용자 로그인·게시글·친구·쪽지·채팅 기능은 후속 범위다. 현재 위치는 [진행 기록](docs/work-status.md)을 따른다.
 
 ## 실행
 
@@ -36,9 +36,10 @@ pnpm test:setup
 - [공통 UI·WHY](docs/ui/foundation.md) · [환경 설정·WHY·계정 인계](docs/development-setup.md) · [기술 선택](docs/decisions/0001-tech-stack.md)
 - [Supabase 계정·환경값·DB 연결 안내](docs/supabase-setup.md) · [STEP 03 준비 결과·남은 작업](docs/reviews/step03.md)
 - [STEP 04 검토 자료](docs/reviews/step04.md) · [현재 ERD](docs/erd.md) · [ERD 읽기·설계 기준](docs/decisions/0002-database-design.md) · [기능별 변경 기록](docs/erd-history/README.md)
+- [DB 도구·역할별 연결·첫 migration 절차](docs/database-migrations.md) · [STEP 05 검토 자료](docs/reviews/step05.md): `pnpm db:drizzle:check`, `pnpm test:db:drizzle:check`로 실제 읽기를 비교한다.
 - [분리 테스트 환경 실행·검증](test-infra/README.md): `pnpm test:env:start`, `pnpm test:env:check`, `pnpm test:env:stop`. 실제 테스트값은 제외된 `.env.test.local`에 보관한다.
 - `.env.example`은 공개할 수 있는 빈 예시다. 실제 값은 Git에서 제외되는 `.env.local`에 둔다. `pnpm env:configure`는 숨김 비밀번호 입력 도구이며 이미 값이 있으면 보존 후 안내한다. `pnpm env:check`는 설정 검사, `pnpm db:check`는 실제 읽기 접속 검사다. 현재 개발 DB 두 주소의 읽기는 성공했다.
 
 학습은 기능에 필요한 테이블을 그때 설계·생성하고 ERD의 변경 전후·이유·SQL·검증을 함께 남기는 방식으로 진행한다. STEP 04·05는 ERD 읽기·기록 기준과 도구 준비이며 업무 테이블은 STEP 06 로그인부터 추가한다. [학습 순서 개정 기록](docs/plan-changes/2026-10-26-feature-erd.md)에 범위와 기존 ID 대응을 남겼다.
 
-주요 기술은 Next.js App Router·TypeScript·Tailwind CSS다. PostgreSQL 점검은 pg 드라이버로 준비했고 Drizzle·Supabase Auth/Realtime은 후속 단계에서 연결한다. DB 연결 문자열과 서버 비밀키는 브라우저 코드에 넣지 않는다.
+주요 기술은 Next.js App Router·TypeScript·Tailwind CSS·Drizzle·pg다. Supabase의 DB/Auth 테스트 기반을 준비했으며 사용자 로그인·Realtime 기능은 후속 단계에서 연결한다. DB 연결 문자열과 서버 비밀키는 브라우저 코드에 넣지 않는다.

@@ -2,7 +2,9 @@
 
 작성일: 2026-10-27 (Asia/Seoul). 현재 실제 상태는 [진행 기록](work-status.md), 검사 결과는 [03 검토 자료](reviews/step03.md)를 따른다.
 
-목적은 Next.js 서버가 선택한 개발 DB에 안전하게 접속하는지 확인하는 것이다. **계정 로그인 → 프로젝트 준비 → 값 입력 → CLI 접속 → Next.js 접속 → 관리 도구 접속**을 각각 구분한다. 테이블·Drizzle·migration·ERD는 아직 만들지 않는다.
+목적은 Next.js 서버가 선택한 개발 DB에 안전하게 접속하는지 확인하는 것이다. **계정 로그인 → 프로젝트 준비 → 값 입력 → CLI 접속 → Next.js 접속 → 관리 도구 접속**을 각각 구분한다. 아래는 STEP 03 준비 당시의 계정·연결 이력이다.
+
+후속 STEP 05에서 Drizzle·전용 앱 역할을 준비했다. 현재 `DATABASE_URL`은 community_lab_runtime의 별도 비밀번호, `MIGRATION_DATABASE_URL`과 DBeaver는 기존 postgres 관리 비밀번호를 유지한다. 두 비밀번호가 다른 것이 정상이며 `env:configure`는 재입력 없이 보존한다. 새 계정 작업은 없다. 현재 역할별 실제 연결·첫 migration의 남은 검증은 [DB 도구 안내](database-migrations.md)를 따른다. 업무 테이블·업무 migration은 여전히 없다.
 
 ## 현재 확인한 것
 

@@ -9,25 +9,25 @@
 | 규칙·정식 플랜 | 앱 AGENTS.md · docs/work-plan.md |
 | 진행 원본 | 앱 docs/work-status.md. 상위 기록·플랜에는 이동 안내만 유지 |
 | 이관 근거 | STEP 01 문서 6개+전체 플랜 1개 이동 직후 SHA-256 일치, 기존 규칙·생성기 지침 병합 보존 |
-| Git·브랜치 | 앱 .git · codex/step02-environment, upstream origin/codex/step02-environment. STEP 03 커밋 0dcd4b5·push 성공·원격 해시 일치. STEP 04 문서는 미커밋 |
+| Git·브랜치 | 앱 .git · codex/step02-environment, upstream origin/codex/step02-environment. STEP04 커밋 560f7c0·push 성공·원격 해시 일치. STEP05 변경은 미커밋 |
 | remote | origin = https://github.com/sungjaechoi/community-lab.git |
 | 개발·테스트·운영 | 로컬 http://127.0.0.1:3001. 개발 DB·Next.js 읽기 성공, 분리 로컬 테스트 DB/Auth 준비·재시작 검사 성공. 운영/배포 미준비 |
-| 마지막 확인 시각 | 2026-10-27 10:07:22 +09:00 (Asia/Seoul). STEP 03 커밋·push 성공, STEP 04 실제 구조·읽기·기록 기준 준비·문서 검사 통과. 04-REVIEW 확인 대기 |
+| 마지막 확인 시각 | 2026-10-27 10:22:35 +09:00 (Asia/Seoul). STEP04 커밋·push 성공, STEP05 역할별 연결·거부·앱·문서 검사 통과. 05-REVIEW 확인 대기 |
 
 ## 현재 위치와 다음 행동
 
 | 항목 | 현재 값 |
 | --- | --- |
-| 현재 STEP·묶음 | STEP 04 현재 ERD 읽기·기능별 설계 변화 기록 기준 |
-| 현재 ID·상태 | 04-COMMIT / APPROVED |
-| 실제 마지막 완료 ID | 04-08. 04-01~08 조사·설명·검토 자료 준비 완료. STEP 03은 전체 확인·커밋·push 완료. STEP 04 REVIEW·COMMIT은 미완료 |
-| 이번 요청 범위 | 04-REVIEW 전체 승인 기록 → STEP04 커밋·push → STEP05 도구·역할별 연결 준비. 업무 테이블 없이 05-REVIEW에서 정지 |
-| 다음 사용자 확인 ID | 05-REVIEW |
-| 다음 작업·재개 ID | 04-COMMIT |
-| 다음 행동·담당 | 에이전트: 승인된 STEP04 파일 명시 stage·diff 확인·커밋·허용된 같은 브랜치 push. 성공 후 05-01 시작 |
-| 확인 후 순서 | 04-COMMIT → 허용된 같은 브랜치 push. STEP 05는 후속 요청 범위에 따라 05-01부터 도구·역할별 연결 준비 |
-| 차단 요인 | 기술 차단 없음. STEP04 전체 승인 수신. 실제 커밋·push 성공 후 STEP05 시작 |
-| 학습 상태 | 기존 설명 보존. decisions/0002-database-design.md에 ERD·PK/FK·NULL·제약·서버/DB/트랜잭션 책임·면접 질문 제공. 이해/복습 완료는 확인하지 않음 |
+| 현재 STEP·묶음 | STEP05 Drizzle·migration 도구·역할별 개발/분리 테스트 연결 |
+| 현재 ID·상태 | 05-COMMIT / APPROVED |
+| 실제 마지막 완료 ID | 05-10. 05-01~10 준비·설명·현재 범위 검사 완료. STEP04 REVIEW·COMMIT·push 완료. STEP05 REVIEW·COMMIT은 미완료 |
+| 이번 요청 범위 | 05-REVIEW 전체 승인 기록 → STEP05 커밋·push → STEP06 외부 OAuth·인증 API·profiles 최초 설계/생성/검증·ERD 변경. 06-API-REVIEW에서 정지 |
+| 다음 사용자 확인 ID | 06-API-REVIEW |
+| 다음 작업·재개 ID | 05-COMMIT |
+| 다음 행동·담당 | 에이전트: 승인된 STEP05 파일27개 명시 stage·diff 확인·커밋·같은 브랜치 push. 성공 후 06-AUTH-01 시작 |
+| 확인 후 순서 | 05-COMMIT → 허용된 같은 브랜치 push. 다음 STEP 시작 ID는 06-AUTH-01이며 후속 요청 범위에 따름 |
+| 차단 요인 | STEP05 전체 승인 수신. 실제 커밋·push 성공 후 STEP06 시작. 계정 접근은 해당 단계에서 실제 확인 |
+| 학습 상태 | database-migrations.md에 ORM/schema/SQL/migration의 차이·역할별 연결·실패 처리·기능별 기록·면접 질문 제공. 이해/복습 완료는 확인하지 않음 |
 
 ## 현재 묶음 결과
 
@@ -81,11 +81,36 @@
 | 04-07 | DONE | profiles06·posts07·comments09·친구/쪽지10·채팅11의 최초 설계 시점 확인. 미래 상세 구조 미설계 |
 | 04-08 | DONE | STEP 05 도구·역할별 읽기 연결과 연결하고 reviews/step04.md에 확인 방법·실제/미검증 결과 제공 |
 | 04-REVIEW | DONE | 전체 승인 수신. 실제 말·기록 시각은 아래 확인 표에 보존 |
-| 04-COMMIT | APPROVED | 승인된 STEP04 문서·읽기 전용 조사 SQL·후속 기록 9개 파일 커밋·같은 브랜치 push 예정. 해시는 성공 후 기록 |
+| 04-COMMIT | DONE | 승인된 9개 파일. 560f7c0402bc020d23e578fc5c51c7c8a9f2f2ac, docs: establish incremental ERD learning and change records, Git 시각 2026-10-27 10:12:28 +09:00. 같은 브랜치 push exit0·원격 해시 일치·직후 clean |
+| 05-01 | DONE | Drizzle ORM0.45.4·Kit0.31.11 고정. 기존 pg8.23.1·@next/env16.4.3·tsx4.23.15 재사용. 설치/CLI 버전/도움말 실제 확인 |
+| 05-02 | DONE | 빈 src/db/schema/index.ts·서버 전용 index·Node 생성기·drizzle.config.ts 구성. runtime/관리·개발/테스트 값 로딩 분리 |
+| 05-03 | DONE | schema→SQL 생성→적용→실제 검증의 역할과 다음 파일 위치 설명. profiles/posts 상세 모델·컬럼·관계 미생성 |
+| 05-04 | DONE | config 개발/테스트 로딩 성공. Kit generate/check/migrate 도움말 확인. 빈 schema/SQL에서 감싼 네 명령은 skipped·DB 접속 없음. 빈 migration/폴더/journal 없음 |
+| 05-05 | DONE | 설치한 Kit/ORM 실행 경로·트랜잭션/이력 조사. 첫 migration에 생성+초기 REVOKE/GRANT/RLS를 함께 검토·분리 적용하는 절차 준비. 실제 테이블 검증은06 |
+| 05-06 | DONE | 개발/테스트에서 community_lab_runtime 별도 LOGIN 생성·인증·관리 postgres 유지. runtime 우회/상위 역할/소유권/CREATE 없음·Auth 읽기와 postgres 전환42501 실제 거부 |
+| 05-07 | DONE | 개발 Drizzle runtime transaction/migration session 읽기 성공·역할 일치·read_only=on·두 구간TLS true. Next 진단도 Drizzle 전용 역할200 |
+| 05-08 | DONE | 분리 로컬 Drizzle 두 역할 읽기/거부 성공. role 준비 재실행·env sync 뒤 runtime 보존/재연결. 첫 업무 migration 재현은 미검증으로 남김 |
+| 05-09 | DONE | 설정17개·비밀 입력 도구 가상5경우·CLI 환경 거부3경우·환경/복구4파일600·ignore·공개JS13개 자격 증명 문자열 없음. 서버 전용 선언·현재 import 검토 |
+| 05-10 | DONE | database-migrations.md·reviews/step05.md에 실제 결과/한계·WHY·면접 질문·첫 SQL/권한·ERD 연결 절차 기록 |
+| 05-REVIEW | DONE | 전체 확인 실제 응답·기록 시각을 아래 표에 보존 |
+| 05-COMMIT | APPROVED | 승인된 STEP05 코드·설정·기반SQL·문서27개 파일 커밋·같은 브랜치 push 예정. 해시는 성공 후 기록 |
 | STEP 12 RBAC | DEFERRED | 승인된 P-08의 선택 보류 유지 |
 | 플랜 개정 3 문서 정비 | DONE | 기능별 설계·ERD 변화 학습 요청을 반영. 실제 테이블·ERD·migration 작업은 미수행이며 UI 승인과 구분 |
 
-개별 준비 작업 DONE은 STEP 전체 승인·커밋을 뜻하지 않는다. STEP 03은 전체 REVIEW·COMMIT·허용 push까지 완료했다. STEP 04는 전체 REVIEW 확인을 받았고 COMMIT이 미완료다. STEP 05는 시작하지 않았다.
+개별 준비 작업 DONE은 STEP 전체 승인·커밋을 뜻하지 않는다. STEP05 전체 REVIEW 확인은 받았고 COMMIT이 미완료다. 업무 테이블·migration 적용/재현 검증과 STEP06은 아직 시작하지 않았다.
+
+## STEP05 사용자 전체 확인 기록
+
+| 항목 | 현재 값 |
+| --- | --- |
+| REVIEW·범위 | 05-REVIEW / Drizzle 설정·실제 개발/분리 테스트 역할별 읽기·금지 작업 거부·첫 SQL 적용/재현 절차 |
+| 자료·실행 | [검토 자료](reviews/step05.md) · [도구·연결·WHY](database-migrations.md). pnpm db:drizzle:check, pnpm test:db:drizzle:check. 개발 DB 진단 http://127.0.0.1:3001/api/dev/db-check →200 status ok |
+| 기대·실제 결과 | runtime=community_lab_runtime, migration=postgres. 4연결 읽기·runtime 거부 확인. 개발TLS true·테스트loopback 전용. public 관계0·drizzle 스키마 없음 |
+| 실제 사용자 확인 | “05-REVIEW 전체 확인했어. 커밋·push하고 STEP 06 진행해줘. 내가 해야 할 계정 작업은 구체적으로 안내하고, profiles 설계·생성과 ERD 변경 이유를 설명해줘. 06-API-REVIEW에서 결과를 보여주고 멈춰줘.” |
+| 남은 검증 | 업무 테이블·RLS/제약·사용자 권한·migration 실제 적용/실패/재적용·노출 공백은06-API-01부터. 실제 Auth 사용자 준비도 그때 수행 |
+| 현재·다음 ID | 05-COMMIT / APPROVED. 성공 후 06-AUTH-01, 다음 확인은 06-API-REVIEW |
+| 자료 기록 시각 | 2026-10-27 10:22:35 +09:00. 사용자 확인이나 메시지 전송 시각이 아님 |
+| 전체 승인 기록 시각 | 2026-10-27 10:30:56 +09:00. 정확한 메시지 전송 시각은 제공되지 않음 |
 
 ## STEP 04 사용자 전체 확인 기록
 
@@ -97,7 +122,7 @@
 | 실행·재확인 | erd-inspection.sql 전체를 같은 개발 DB의 SQL Editor/DBeaver에서 실행하면 문맥·관계 개수·public0·Auth PK 결과를 비교할 수 있음. 실제 CLI 실행 exit0·read_only=on |
 | 실제 사용자 확인 | “04-REVIEW 전체 확인했어. 커밋·push하고 STEP 05 진행해줘. 업무 테이블은 아직 만들지 말고 도구·역할별 연결을 준비한 뒤, 05-REVIEW에서 결과를 보여주고 멈춰줘.” |
 | 미정·미검증 | 업무 테이블 컬럼·관계·삭제 정책은 해당 기능에서 결정. 가상 DDL 실행·로그인·업무 권한/제약·동시성 검증은 미수행. 이해 완료도 미확인 |
-| 현재·다음 ID | 04-COMMIT / APPROVED. 성공 후 05-01, 다음 사용자 확인 05-REVIEW |
+| 확인 후 결과 | 04-COMMIT DONE·push 성공. 실제 해시560f7c0402bc020d23e578fc5c51c7c8a9f2f2ac. 이후 STEP05 준비·현재05-REVIEW 대기 |
 | 자료 기록 시각 | 2026-10-27 10:07:22 +09:00 (Asia/Seoul). 사용자 확인·메시지 전송 시각이 아님 |
 | 전체 승인 기록 시각 | 2026-10-27 10:11:56 +09:00. 정확한 메시지 전송 시각은 제공되지 않음 |
 
@@ -205,24 +230,24 @@ GitHub 계정 인계는 development-setup.md 6절, Supabase의 실제 화면·�
 | 항목 | 현재 값 |
 | --- | --- |
 | 시작 전 staged·사용자 변경 | 저장소 없음. 초기 사용자 문서 보존·승인 이력 기록 후 이관 |
-| 현재 이력·작업 트리 | 환경·UI·STEP03 커밋 3개·원격 반영 완료. STEP03 push 직후 clean 확인 후 STEP04 문서 변경. 현재 staged0 |
+| 현재 이력·작업 트리 | 환경·UI·STEP03·STEP04 커밋4개·원격 반영 완료. STEP04 push 직후 clean 확인 후 STEP05 코드/문서 변경. 현재 staged0 |
 | 원격·현재 브랜치 | origin https://github.com/sungjaechoi/community-lab.git · codex/step02-environment |
 | push 정책·대상 | “확인 후 커밋하면 지정한 원격 브랜치로 push 허용”. 실제 대상 origin/codex/step02-environment, 같은 승인 범위에 재승인 요청 없음 |
-| 최근 COMMIT ID·실제 해시 | 03-COMMIT DONE · 0dcd4b59f74e52a73dd198ecc301a45e29e9c540 · chore: prepare Supabase connections and isolated test environment · 2026-10-27 10:00:12 +09:00 |
-| push 실행·원격 반영 | git push origin codex/step02-environment exit0. HEAD·upstream·ls-remote 해시 일치. 10:06:13 +09:00 기록 시 원격 동일 해시 재확인 |
-| 오류·차단 | STEP03 커밋·push 오류 없음. 강제 push·신원/서명/훅/보호 정책 변경 없이 성공 |
-| 커밋 범위 | 승인된 STEP03 설정·연결 코드·테스트 기반·문서·이미지 28개 파일. 실제 환경값·CA·로컬 CLI 제외 |
-| 후속 문서 기록 | STEP03 성공 해시·push 결과와 STEP04 준비 기록은 다음 예정 04-COMMIT에 포함. 해시 기록용 재커밋 금지 |
+| 최근 COMMIT ID·실제 해시 | 04-COMMIT DONE · 560f7c0402bc020d23e578fc5c51c7c8a9f2f2ac · docs: establish incremental ERD learning and change records · 2026-10-27 10:12:28 +09:00 |
+| push 실행·원격 반영 | git push origin codex/step02-environment exit0. HEAD·upstream·ls-remote 해시 일치·직후 clean |
+| 오류·차단 | STEP04 커밋·push 오류 없음. 강제 push·신원/서명/훅/보호 정책 변경 없이 성공 |
+| 커밋 범위 | 승인된 STEP04 문서·읽기 전용 조사SQL·후속 기록9개 파일. 실제 환경값·CA·로컬 CLI 제외 |
+| 후속 문서 기록 | STEP04 성공 해시·push 결과와 STEP05 준비 기록은 다음 예정05-COMMIT에 포함. 해시 기록용 재커밋 금지 |
 | 제외·상위 변경 | .env 실제값·node_modules·.next·생성 타입 제외. 시작 폴더 이동 안내는 앱 저장소 밖 |
 
 ## 기존 기록과 ID 대응·재개 메모
 
 - 초기 루트 work-status.md 템플릿 → 시작 docs/work-status.md → 앱 docs/work-status.md로 실제 단계에 따라 이관. 이전 완료·실제 승인 이력은 reviews/step01.md에 보존.
 - 이번 앱 변경: src 기본 화면·layout·CSS·health, package scripts/engine·.nvmrc·.gitignore·.env.example, README·AGENTS·docs 이관/기록. 생성기 설정·lockfile 보존. 상위에는 이동 안내만 둠.
-- WHY·설정·면접 자료: development-setup.md·ui/foundation.md·supabase-setup.md·decisions/0002-database-design.md. 현재 사용자 확인: reviews/step04.md. 이전 확인 이력도 reviews/에 보존.
+- WHY·설정·면접 자료: development-setup.md·ui/foundation.md·supabase-setup.md·decisions/0002-database-design.md·database-migrations.md. 현재 사용자 확인: reviews/step05.md. 이전 확인 이력도 reviews/에 보존.
 - 알려진 제한: ESLint 9 지원 종료 경고·일부 전이 플러그인의 10 peer 미선언. 생성기 조합으로 검사 통과, 강제 호환 처리 없음. native 설치 스크립트 제외는 현재 기기 검증만 통과.
 - 선택 보류: 승인된 P-06 탈퇴 UI·P-08 추가 기능·STEP 12 RBAC 유지.
-- 다음 ID·첫 행동: 04-REVIEW / WAITING_USER_REVIEW. 현재 ERD·읽기 예·기능별 변경 기록 기준을 확인받고 수정 요청이면 같은 REVIEW에서 보완. 확인 뒤 04-COMMIT.
+- 다음 ID·첫 행동: 05-REVIEW / WAITING_USER_REVIEW. 도구·역할별 연결·migration 절차·미검증 범위를 확인받고 수정 요청이면 같은 REVIEW에서 보완. 확인 뒤 05-COMMIT.
 
 ### Git 연결 재확인 당시 이력
 
@@ -322,3 +347,18 @@ GitHub 계정 인계는 development-setup.md 6절, Supabase의 실제 화면·�
 - 실제 문서·보존 검사 PASS(exit0): Markdown21개·내부 링크/이미지110개 정상, 기존 ID259개 순서 보존·중복 없음·체크54개, 기존 소스/설정/이미지54개 SHA-256 일치. 신규 SQL은 BEGIN/SET LOCAL/SELECT 5개/COMMIT이며 DDL·업무 행 조회 없음. diff 공백 오류·변경 파일의 자격 증명 패턴 없음, HEAD0dcd4b5·staged0 유지.
 - 이번 변경은 문서와 읽기 전용 조사 SQL이다. 타입·린트·빌드는 재실행하지 않았고 STEP03 성공 근거를 보존한다. 실제 업무 제약·권한·트랜잭션/동시성·로그인·Realtime은 후속 기능 범위다.
 - 결과 기록 시각: 2026-10-27 10:07:22 +09:00. 현재·다음 04-REVIEW / WAITING_USER_REVIEW에서 멈춘다. 확인 후 ID는 04-COMMIT, STEP05 도구 준비 시작 ID는 05-01이다. STEP04 커밋·push·STEP05 작업은 수행하지 않았다.
+
+## STEP04 커밋·push 성공과 STEP05 검토 제출 · 2026-10-27
+
+- 사용자 전체 승인 원문과 기록 시각10:11:56 +09:00은 위 STEP04 확인 표에 보존했다. 승인된9개 파일의 실제 stage/diff·비밀 패턴을 확인하고 560f7c0402bc020d23e578fc5c51c7c8a9f2f2ac로 커밋했다. 메시지 docs: establish incremental ERD learning and change records, Git 시각2026-10-27 10:12:28 +09:00이다.
+- 같은 브랜치 push exit0·HEAD/upstream/원격 해시 일치·직후 clean을 확인했다. 후속 최종 원격 조회도 같은 해시다. 정책/훅/서명 변경·강제 push 없이 성공했다. 성공 해시·이 기록은 다음 예정05-COMMIT에 포함한다.
+- 도구: Drizzle ORM0.45.4·Kit0.31.11 고정, 기존pg8.23.1·@next/env16.4.3·tsx4.23.15 재사용. 실제 버전/도움말·설정 로딩을 확인했다. 빈 schema barrel·서버 전용 진입점·환경/역할 검사·Kit 설정·안전한 실행기를 준비했다.
+- 역할 기반 SQL: infra/database/runtime-role.sql과 prepare-database-role.ts로 개발/분리 테스트 각각 community_lab_runtime LOGIN·CONNECT/public USAGE를 준비했다. 별도 난수 비밀번호·SCRAM 검증값·제외된 복구 파일을 사용하고 기존 postgres 관리값을 유지했다. 역할 생성·인증 및 재실행 성공이다. 업무 테이블 migration과 구분한다.
+- 실제 Drizzle4연결: 개발 runtime transaction6543/community_lab_runtime·관리 session5432/postgres, 테스트 loopback54322의 두 역할 모두 read_only=on·역할 일치. 개발 client 인증서 검증/DB 구간 TLS=true, 로컬은 고정 loopback SSL=false. runtime의 superuser/create DB/create role/inherit/replication/bypass RLS·public CREATE·auth USAGE=false, public 소유 객체/상위 membership0, JWT 문맥 없음이다.
+- 금지 작업: 두 runtime에서 Auth SELECT LIMIT0와 SET ROLE postgres가 각각42501로 거부되었다. 실제 사용자 데이터 행을 읽지 않았다. public 관계0·drizzle 스키마 없음도 네 연결에서 관찰했다. 새 업무 테이블·권한/RLS 정책·migration 파일/이력은 생성하지 않았다.
+- 검증: 타입·린트·프로덕션 빌드 exit0, test:setup17/17. 입력 도구 가상5경우의 보존/비밀 출력 검사·실제 파일 지문 보존, CLI 환경 거부3경우, 역할 준비 재실행·test:env:sync 후 전용runtime 값 보존/재연결·기존test:env:check DB/Auth200도 통과했다.
+- 앱/경계: 개발3001의 실제 Drizzle 진단200/status ok·no-store, health200·posts200. 검사용 프로덕션3002 진단404/빈본문·health200·POST405·posts200. 검사용3002만 의도적으로 종료(exit130), 기존3001/3000 유지. 서버 전용 선언·현재 import를 검토했고 공개JS13개에서 실제 DB URI/비밀번호 문자열 미발견이다. 실패 클라이언트 import 빌드·전체 보안 감사는 미실행이다.
+- migration 명령의 현재 실제 결과: db:generate·db:migrations:check·db:migrate·test:db:migrate 모두 skipped/NO_BUSINESS_SCHEMA_OR_MIGRATIONS/connected:false. Kit 본 실행·SQL 생성·적용 성공으로 기록하지 않는다. 실제 적용·실패 복구·빈 DB 재현·초기 노출 공백은 첫 테이블을 만드는06-API-01부터 검증한다.
+- 변경 파일27개: .env.example·AGENTS·README·package/lockfile·drizzle.config.ts, src/db5개, scripts의 준비/검사/실행기3개와 기존입력/테스트환경2개, infra/database/runtime-role.sql, 기존DB설정/테스트설정/서버진단3개, test-infra/README, docs/database-migrations.md·reviews/step05.md·reviews/step04.md·supabase-setup.md·work-plan/status. 상세 파일 역할·WHY·첫SQL 절차·면접 질문은 database-migrations.md에 남겼다.
+- 최종 문서/Git 검사 PASS(exit0): Markdown23개·내부 링크/이미지123개, 기존ID259개 순서/완료 보존·체크66개, 허용 변경 외 기존 소스/설정/이미지47개 내용 동일. 현재ERD 불변·기능이력 폴더README만·schema 빈export·drizzle폴더 없음, 실제 환경/복구4파일0600·Git 제외, 변경 파일의 실제 자격 증명 문자열 없음·diff 공백 오류 없음. HEAD560f7c0·staged0 유지다.
+- 결과 기록 시각2026-10-27 10:22:35 +09:00. 현재·다음05-REVIEW / WAITING_USER_REVIEW에서 멈춘다. 새 계정 작업은 없다. 확인 후ID는05-COMMIT, 그 후 다음STEP 시작ID는06-AUTH-01이다. STEP05 커밋·push와 STEP06 작업은 수행하지 않았다. 설명 제공·자동 검사와 사용자 확인/이해 완료는 각각 구분한다.

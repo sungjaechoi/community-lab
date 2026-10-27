@@ -9,25 +9,25 @@
 | 규칙·정식 플랜 | 앱 AGENTS.md · docs/work-plan.md |
 | 진행 원본 | 앱 docs/work-status.md. 상위 기록·플랜에는 이동 안내만 유지 |
 | 이관 근거 | STEP 01 문서 6개+전체 플랜 1개 이동 직후 SHA-256 일치, 기존 규칙·생성기 지침 병합 보존 |
-| Git·브랜치 | 앱 .git · codex/step02-environment, upstream origin/codex/step02-environment. 환경 첫 커밋·push 성공, UI·개정 플랜 승인 후 커밋 준비 중 |
+| Git·브랜치 | 앱 .git · codex/step02-environment, upstream origin/codex/step02-environment. 환경·UI 커밋/push 성공. 최근 50c7f91, STEP 03 연결 준비는 미커밋 |
 | remote | origin = https://github.com/sungjaechoi/community-lab.git |
-| 개발·테스트·운영 | 개발 http://127.0.0.1:3001. DB/분리 테스트/운영·배포 미준비 |
-| 마지막 확인 시각 | 2026-10-27 08:36:14 +09:00 (Asia/Seoul) |
+| 개발·테스트·운영 | 로컬 http://127.0.0.1:3001. 개발 DB·Next.js 읽기 성공, 분리 로컬 테스트 DB/Auth 준비·재시작 검사 성공. 운영/배포 미준비 |
+| 마지막 확인 시각 | 2026-10-27 09:51:09 +09:00 (Asia/Seoul). DBeaver Test Connection 성공·Finish 사용자 보고 기록, STEP 03 전체 REVIEW 확인 대기 |
 
 ## 현재 위치와 다음 행동
 
 | 항목 | 현재 값 |
 | --- | --- |
-| 현재 STEP·묶음 | STEP 02 공통 UI 기초. 환경 확인·커밋・push 완료 후 진입 |
-| 현재 ID·상태 | 02-UI-COMMIT / APPROVED |
-| 실제 마지막 완료 ID | 02-UI-05. 공통 UI 작성·검증·확인 자료 준비 완료. UI 사용자 확인·커밋 전이므로 STEP 02 전체 미완료 |
-| 이번 요청 범위 | 개정 플랜·02-UI-REVIEW 승인 기록 → 해당 변경 커밋·push → STEP 03 진행. 03-REVIEW에서 정지 |
-| 다음 사용자 확인 ID | 03-REVIEW |
-| 다음 작업·재개 ID | 02-UI-COMMIT |
-| 다음 행동·담당 | 에이전트: 승인된 UI·개정 플랜을 명시 stage·diff 확인·커밋·같은 브랜치 push 후 03-SETUP-01 |
-| 확인 후 순서 | 02-UI-COMMIT → 허용 정책의 같은 브랜치 push. 이후 다음 STEP은 03-SETUP-01. 환경 결과 후속 기록은 UI 커밋에 포함 |
-| 차단 요인 | 현재 UI 커밋 차단 없음. Supabase 계정·프로젝트·환경값·연결은 STEP 03에서 확인 |
-| 학습 상태 | 환경·UI의 WHY·서버/클라이언트 역할·입력→검증→로컬 처리→결과·면접 질문 제공. 이해/복습 완료는 확인하지 않음 |
+| 현재 STEP·묶음 | STEP 03 Supabase·환경값·DB 연결. STEP 02 UI 커밋·push 성공 후 진입 |
+| 현재 ID·상태 | 03-COMMIT / APPROVED |
+| 실제 마지막 완료 ID | 03-SETUP-08 DBeaver 연결 검사 성공·Finish 사용자 확인을 후속 기록. 03-SETUP-01~11 준비/검증 완료, REVIEW 사용자 전체 확인·COMMIT은 미완료 |
+| 이번 요청 범위 | 03-REVIEW 전체 승인 기록 → STEP03 커밋·push → STEP04 현재 구조·ERD 읽기·기능별 변경 기록 기준 준비 → 04-REVIEW에서 정지 |
+| 다음 사용자 확인 ID | 04-REVIEW |
+| 다음 작업·재개 ID | 03-COMMIT |
+| 다음 행동·담당 | 에이전트: 승인된 STEP03 파일 명시 stage·diff 확인·커밋·허용된 같은 브랜치 push. 성공 후 04-01 시작 |
+| 확인 후 순서 | 계정·값 입력 → 실제 runtime/migration·Next.js·관리 연결 검증 → 03-REVIEW 대기 → 사용자 확인 후 03-COMMIT → 허용된 같은 브랜치 push → 04-01 |
+| 차단 요인 | 현재 기술 차단 없음. STEP03 전체 REVIEW 승인 수신. 실제 커밋·push 성공 전 STEP04 작업을 시작하지 않음 |
+| 학습 상태 | 기존 환경·UI 설명 보존. STEP 03 변수/연결 방식·읽기 트랜잭션·오류 구분·면접 질문을 supabase-setup.md에 제공. 이해/복습 완료는 확인하지 않음 |
 
 ## 현재 묶음 결과
 
@@ -58,13 +58,40 @@
 | 02-UI-04 | DONE | 로딩·빈 결과·오류/재시도·권한 안내 공통 표현, 개발 전용 예시와 실제 API 미연결 구분 |
 | 02-UI-05 | DONE | 타입·린트·최종 빌드·프로덕션 HTTP·메뉴/키보드·CSS360/1280 배치 검사. 자세한 근거는 reviews/step02-ui.md |
 | 02-UI-REVIEW | DONE | 사용자 실제 말로 공통 UI와 개정 플랜 확인. 아래 승인 기록·reviews/step02-ui.md 참조 |
-| 02-UI-COMMIT | APPROVED | 승인된 UI·후속 기록·개정 플랜만 커밋 예정. 실제 해시·push 결과는 성공 후 기록 |
+| 02-UI-COMMIT | DONE | 50c7f91ac1d518f47a73bb7ddc6877f5bdb182eb, feat: add shared UI and incremental schema learning plan. 33개 파일·2026-10-27 08:36:59 +09:00. 같은 브랜치 push exit 0·원격 해시 일치·직후 clean |
+| 03-SETUP-01 | DONE | 사용자 로그인 후 실제 sungjaechoi 계정·개인 Free 조직·프로젝트 Owner 확인. 플러그인 미설치로 인증된 브라우저 사용 |
+| 03-SETUP-02 | DONE | 사용자 “신규”·“프로젝트 생성 완료.” 수신. community-lab-dev·awqctedxgsjyqkswogdu·서울·Healthy 실제 확인. 기존 프로젝트·요금제 변경 없음 |
+| 03-SETUP-03 | DONE | 실제 Connect의 Project URL·publishable key를 로컬 파일에 반영. secret/service_role 키 추가 없음 |
+| 03-SETUP-04 | DONE | runtime transaction6543, migration session5432 선택. 실제 direct는 A 없음/AAAA1·기본 TCP 이름 해석 실패, pooler 두 포트 TCP 성공. DB 인증·SQL 성공과 구분 |
+| 03-SETUP-05 | DONE | 실제 두 DB 주소에 동일한 비밀번호 값 존재·공개키 형식 정상, env:check 두 대상 configured. 원문/비밀 출력 없음·0600·ignore 확인. 기존 값을 덮어쓰지 않음 |
+| 03-SETUP-06 | DONE | pg·환경 로더·TypeScript 실행기, 설정/안전한 오류/읽기 점검·server-only 래퍼·개발 전용 진단 경로·단위 검사 준비. 실제 연결 완료와 구분 |
+| 03-SETUP-07 | DONE | 공식 CA 적용·검증 유지. SSL 강제를 켜고 DB 재시작 후 runtime transaction·migration session 모두 role/database postgres·읽기·clientTlsVerified true·backendTls true, Next 진단200·status ok |
+| 03-SETUP-08 | DONE | SQL Editor 읽기는 에이전트 확인, DBeaver Test Connection 성공·Finish는 안내 후 사용자 보고로 확인. 별도 DBeaver 수동 SQL·세부 SSL 항목의 독립 재검사는 수행한 것으로 기록하지 않음 |
+| 03-SETUP-09 | DONE | Docker27.3.1·CLI2.122.0·community-lab-test 로컬 전용 스택. 실제 모든 공개 포트127.0.0.1, DB 읽기·Auth 스키마·Auth HTTP200·중지/재기동 후 재검증 성공. .env.test.local600·ignore |
+| 03-SETUP-10 | DONE | Data API 활성·graphql_public/public 노출·자동 공개 끔, ensure_rls 트리거 enabled O, public 기본 ACL 실제 조사. postgres 소유 새 테이블에 anon 등 Dxtm 잔존: 기능별 첫 migration에서 명시적 권한 회수·부여/RLS 계획. 업무 테이블 생성·권한 SQL 변경 없음 |
+| 03-SETUP-11 | DONE | 변수·실제 성공/실패·TLS 수정·기본 권한·테스트 기반·DBeaver 남은 작업·실행/기대 결과를 문서화. 상세 reviews/step03.md·supabase-setup.md·test-infra/README.md |
+| 03-REVIEW | DONE | “03-REVIEW 전체 확인했어. 커밋·push하고 STEP 04 진행해줘. 04-REVIEW에서 결과를 보여주고 멈춰줘.” 전체 범위 승인 수신·아래 기록 |
+| 03-COMMIT | APPROVED | 명시한 STEP03 파일 28개만 커밋·같은 브랜치 push 예정. 실제 해시는 성공 후 다음 예정 기록에 반영 |
 | STEP 12 RBAC | DEFERRED | 승인된 P-08의 선택 보류 유지 |
 | 플랜 개정 3 문서 정비 | DONE | 기능별 설계·ERD 변화 학습 요청을 반영. 실제 테이블·ERD·migration 작업은 미수행이며 UI 승인과 구분 |
 
-준비 작업의 DONE은 환경 전체 승인·커밋·push 성공을 뜻하지 않는다. REVIEW는 실제 사용자 확인이 있어야 DONE이며, STEP 02 완료는 해당 UI 묶음까지 확인·커밋한 뒤다.
+개별 준비 작업 DONE은 STEP 전체 승인·커밋을 뜻하지 않는다. STEP 02는 UI 확인·커밋·허용 push까지 완료했다. STEP 03 준비/연결 검증은 마쳤고 전체 REVIEW 승인·COMMIT이 미완료다. 확인 전 다음 STEP으로 진행하지 않는다.
 
-## 현재 UI 사용자 확인 기록
+## STEP 03 사용자 전체 확인 기록
+
+| 항목 | 현재 값 |
+| --- | --- |
+| REVIEW·범위 | 03-REVIEW / 개발 프로젝트·공개/비밀 환경값·실제 DB/Next.js·TLS·SQL Editor·DBeaver 사용자 확인·분리 테스트 기반·검증 한계 |
+| 자료·실행 | reviews/step03.md, supabase-setup.md, test-infra/README.md. 개발 DB 진단 http://127.0.0.1:3001/api/dev/db-check → 200 status ok |
+| 현재 실제 사용자 확인 | 후속 실제 말 “03-REVIEW 전체 확인했어. 커밋·push하고 STEP 04 진행해줘. 04-REVIEW에서 결과를 보여주고 멈춰줘.”로 전체 범위 승인. 앞선 DBeaver 개별 확인과 구분 |
+| 검토 자료 기록 시각 | 2026-10-27 09:39:39 +09:00 (Asia/Seoul). 사용자 메시지 전송 시각으로 추정하지 않음 |
+| 사용자 작업 | DBeaver 연결 인계 해소. 실제 말 “SSL 선택할때 다운로드 했고 Test Connection 이상없어서 피니쉬 눌렀어”. 정확한 전송 시각 미제공, 결과 기록 2026-10-27 09:51:09 +09:00 |
+| 검증된 결과 | env:check·runtime/migration 읽기·Next.js 실제 DB200, 두 구간 TLS true, SQL Editor 읽기, local-test DB/Auth200·중지/재기동·설정10개·입력 도구 보존4경우·타입/린트/빌드 통과 |
+| 미검증·제한 | DBeaver 별도 수동 SQL·세부 SSL 설정의 독립 재검사, 실제 사용자 로그인/Google OAuth, 업무 데이터·제약/RLS·트랜잭션/동시성·Realtime·운영/다른 OS는 미검증 또는 후속 범위 |
+| 현재·다음 ID | 03-COMMIT / APPROVED. 실제 커밋·push 뒤 04-01 시작. 다음 확인은 04-REVIEW |
+| 전체 승인 기록 시각 | 2026-10-27 09:57:34 +09:00 (Asia/Seoul). 정확한 메시지 전송 시각은 제공되지 않음 |
+
+## 완료한 UI 사용자 확인 기록
 
 | 항목 | 현재 값 |
 | --- | --- |
@@ -74,7 +101,7 @@
 | 실제 검증 | 아래 공통 UI 결과. 전체 화면·상태/입력 예시는 실제 업무 API·인가 결과와 구분 |
 | 확인 요청 자료 기록 시각 | 2026-10-26 16:29:42 +09:00 (Asia/Seoul) |
 | 실제 사용자 응답·시각 | “변경된 플랜 확인했어. 02-UI-REVIEW도 확인했으니 커밋·push하고 STEP 03 진행해줘. 내가 해야 할 계정 작업은 구체적으로 안내하고, 03-REVIEW에서 멈춰줘.” 정확한 전송 시각은 제공되지 않음. 승인 기록 2026-10-27 08:36:14 +09:00 |
-| 판단·다음 ID | 02-UI-REVIEW DONE, 개정 3 플랜 승인. 현재·다음 02-UI-COMMIT. 같은 범위 커밋·허용 push 후 STEP 03 |
+| 판단·다음 ID | 02-UI-REVIEW DONE, 개정 3 플랜 승인. 02-UI-COMMIT·push 성공 후 STEP 03 진입. 해시 결과 후속 기록은 다음 03-COMMIT에 포함 |
 | 변경 파일 | src/app/layout·page·globals, 준비 페이지 5개·loading/error/not-found, src/components 공통 요소, /ui-preview, 문서·캡처. 상세 REVIEW |
 | 한계 | Google·기능 API·DB·Realtime 미연결. 로딩/오류/권한 샘플은 로컬 예시. 실제 에러 경계 장애 주입·실제 휴대폰·다른 브라우저·전체 접근성 감사는 미수행 |
 
@@ -106,10 +133,12 @@
 | GitHub CLI 인증 · 사용자 작업/에이전트 검증 완료 | sungjaechoi 활성 계정·HTTPS 로그인, 인증된 대상 저장소 permissions.push=true 및 실제 환경 push 성공 | 추가 로그인 작업 없음. 향후 만료·권한 오류 때만 실제 필요분 재인계 |
 | remote·push · 에이전트 | 02-GIT-PUSH DONE. origin의 같은 브랜치로 push·upstream 설정·원격 해시 일치 확인 | 후속 커밋도 정해진 정책과 해당 사용자 확인 범위로 진행 |
 | 조직/저장소 권한 · 사용자(실제 거부 시) | 현재 권한 거부를 확인한 것은 아님 | 실제 오류 시 저장소 Settings/조직 접근 화면의 필요 항목만 인계. 보호 정책 우회 없음 |
-| Supabase·환경값·DB·테스트 대상 | TODO. 프로젝트·입력·연결 모두 미수행 | STEP 03에서 도구·계정·연결별 담당과 확인 구분 |
+| Supabase 로그인·신규 대상 | DONE. “신규”, “로그인 완료 현재 대시보드에 위치해 있어”, “프로젝트 생성 완료.” 수신·실제 계정/개발 프로젝트 확인 | 실제 전송 시각 미제공. 개인 Free 조직·서울·Healthy. 신규 DB 비밀번호 입력·생성 제출은 사용자 직접 처리 |
+| 환경값·실제 DB·관리 도구 | DONE. DB 입력·runtime/migration·Next.js·SQL Editor 성공, DBeaver Test Connection 성공·Finish는 사용자 보고로 확인 | 비밀번호 재입력 불필요. 별도 DBeaver 수동 SQL은 미실행으로 남김. 현재는 STEP 03 전체 REVIEW 확인 대기 |
+| 분리 테스트 DB·Auth / Data API | DONE. 로컬 DB/Auth 읽기·Auth HTTP200·중지/재기동·개발 대상 거부 검사 통과, Data API 조사도 완료 | 반복 실행은 test:env:start/check/stop, 상세 test-infra/README.md. 실제 사용자 로그인·업무 권한/제약·Realtime 검사는 해당 기능에서 수행 |
 | Google OAuth·배포·CI | TODO | 각각 STEP 06·14·15에서 실제 인계 |
 
-계정 화면·WHY·담당·완료 후 비밀이 아닌 정보·재검증은 development-setup.md 6절을 따른다. 비밀번호·PAT·인증 코드·토큰을 채팅이나 문서에 남기지 않는다.
+GitHub 계정 인계는 development-setup.md 6절, Supabase의 실제 화면·필드·WHY·담당·완료 기준은 supabase-setup.md를 따른다. 비밀번호·PAT·인증 코드·토큰을 채팅이나 문서에 남기지 않는다.
 
 ## 환경 묶음의 실제 검증 이력
 
@@ -211,7 +240,45 @@
 - 환경 커밋 d9b9f8f와 원격 반영은 완료됐고, 새 UI 변경은 로컬 미커밋 상태다. UI 확인·02-UI-COMMIT 성공 전 STEP 03으로 넘어가지 않는다.
 - 최종 일회성 문서·Git 검사 PASS (exit 0): Markdown 13개·내부 링크/이미지 61개 정상, 기존 요구사항7·화면12·수용기준29 보존. ENV REVIEW/COMMIT/PUSH와 UI01~05 완료, UIREVIEW 대기·UICOMMIT TODO·STEP03 미시작 일치. HEAD/upstream은 환경 커밋으로 동일, 로컬 커밋1·staged0, 현재 관련 변경30개 비밀 패턴 없음·의존성/lockfile 변경 없음.
 
-## 플랜 개정 3 · 기능별 테이블·ERD 학습 반영
+## STEP 02 UI 승인·커밋·push 후 STEP 03 진입 · 2026-10-27
+
+- UI·개정 플랜 실제 승인 원문·기록 시각은 위의 완료 UI 확인 표와 reviews/step02-ui.md에 보존했다. 승인된 33개 파일을 50c7f91ac1d518f47a73bb7ddc6877f5bdb182eb로 커밋·같은 브랜치 push 성공·원격 해시 일치·직후 clean. Git 시각 08:36:59 +09:00이다. 성공 해시 후속 기록은 다음 예정 03-COMMIT에 포함하며 기록만을 위한 재커밋은 만들지 않는다.
+- 사용자 후속 실제 말: “신규” → “로그인 완료 현재 대시보드에 위치해 있어” → “프로젝트 생성 완료.”. 정확한 전송 시각은 제공되지 않았으며 현재 기록 시각은 2026-10-27 08:59:49 +09:00이다. 실제 계정·개발 프로젝트·지역·Healthy를 별도로 확인했다.
+- 사용자가 새 DB 비밀번호 입력·생성 제출을 직접 처리했다. 이후 공개 환경값·transaction/session 실제 주소만 로컬 반영했고 DB 비밀번호는 사용자 직접 입력 대기다. 입력 안내에 “터미널에 어떤 명령어를 실행하라는건지 이해하지 못했어”라고 질문해 WHY·한 줄 명령·숨김 입력·저장 완료 문구를 재설명했다. 이해·입력 완료를 추정하지 않는다.
+- 실제 SQL Editor: connection_ok1·database/role postgres·Auth 스키마 존재·public 테이블0. pg_default_acl·ensure_rls enabled O 조사, Data API 활성·graphql_public/public 노출·자동 공개 끔 확인. SQL Editor 성공은 로컬 접속 성공을 대신하지 않는다. 실제 업무 테이블·schema·migration·ERD 작업은 없음.
+- 네트워크: direct 호스트 A 없음·AAAA1, 이 기기 기본 TCP 이름 해석 실패. shared pooler 5432/6543 TCP 도달. 런타임 transaction·migration session 선택이며 DB 인증·migration 실행 호환성은 미검증이다.
+- 공개키 HTTP 검사: Auth settings 실제 키200·잘못된 키401. 없는 테이블 점검 GET404·PGRST205, 생성 없음. REST 루트401은 별도 결과로 남겼고 서버 secret 키를 추가해 열지 않았다. 실제 사용자 로그인·기능 데이터 접근·Realtime은 후속 범위다.
+- 코드: pg8.23.1·server-only·@next/env16.4.3·tsx4.23.15, 설정 검증·읽기 트랜잭션·안전한 실패 분류·개발 전용 진단, 숨김 비밀번호 입력 도구를 준비했다. `.env.local`은 0600·ignore이며 실제 비밀번호·전체 접속 URI·원본 드라이버 오류를 출력하지 않는다.
+- 실제 검사: test:setup7/7, typecheck·lint·build exit0. 최종 코드 빌드 뒤 로컬 입력 도구 문법·린트·비대화형 실행 거부도 확인했다. 초기 환경 로더 import/모듈 실행 호환 문제는 수정하고 CLI·Next의 같은 ENV_MISSING을 확인했다. 공개값 반영 뒤 env:check는 비밀번호 자리표시자로 ENV_INVALID·exit1, 설정 성공은 아님.
+- 개발 HTTP: 진단503·설정 누락·no-store/noindex, health200·기존 JSON. 프로덕션3002: 진단404·본문 없음, posts200·health200. 임시3002만 검사 뒤 의도적으로 종료(exit130), 기존3001·3000은 유지했다. 설정 값이 바뀐 뒤 앱 실제 접속은 재검증한다.
+- 관리/테스트: DBeaver CE26.0.0 설치·실행·통계 전송 거부·샘플 DB 생성 건너뜀. 드라이버 선택 화면 준비, 실제 연결은 미검증. Docker 명령·Desktop 앱은 있으나 엔진 접속 실패, 분리 테스트 DB/Auth 미준비·STEP05 이전 해결 필요.
+- 문서·Git 일회성 검사 PASS: Markdown16개·내부 링크/이미지80개, 작업 ID259개·현재 체크39개·중복 없음, staged0·추적 env는 예시만·HEAD50c7f91 유지·비밀 패턴 없음. 이후 문서 보완은 별도 diff 확인한다.
+- 변경 파일: .env.example·.gitignore·AGENTS·README·package/lockfile, scripts/check-db.ts·configure-db-password.mjs, src/lib/database·src/lib/server/check-database.ts, src/app/api/dev/db-check/route.ts, 환경/플랜/진행/검토 문서·SQL/DBeaver 근거 이미지. STEP03 변경은 미커밋이다.
+- 현재·다음은 03-SETUP-05 / WAITING_USER_ACTION. 담당 사용자 비밀 입력 후 에이전트가 실제 DB·Next.js 연결·남은 관리/테스트 준비를 확인한다. 필수 연결 후 정식 03-REVIEW에서 멈추며 사용자 확인 전 03-COMMIT·STEP04로 넘어가지 않는다. 사전 결과는 reviews/step03.md, 구체적 계정 인계·WHY는 supabase-setup.md다.
+
+## STEP 03 환경 입력 오류 보완·연결 성공·검토 제출 · 2026-10-27
+
+- 실제 사용자 문의는 env:configure의 “비밀번호 자리표시자가 있는 주소만 입력할 수 있습니다. 기존 비밀번호는 덮어쓰지 않습니다.” 오류였다. 파일 원문을 출력하지 않고 두 주소가 이미 입력·동일함, 공개키 형식 정상·0600·ignore를 확인했다. 값 존재를 인증 성공으로 추정하지 않고 다음 검사를 실행했다.
+- 입력 도구를 이미 입력된 두 값이 같으면 정상 안내·exit0, 값이 다르거나 일부만 있으면 보존·명확한 오류로 수정했다. 실제 파일과 임시4경우(기존/상이/혼합/미입력)에서 비밀 출력·기존 파일 변경 없이 동작함을 확인했다.
+- 실제 DB 접속은 처음 TLS SELF_SIGNED_CERT_IN_CHAIN으로 실패했다. Dashboard가 제공한 공식 Root 2021 CA를 제외된 .secrets에 받아 subject/issuer·유효기간·SHA256을 확인하고 두 CA 경로에 지정했다. 인증서 검증과 시스템 신뢰 저장소는 유지했다.
+- 최초 성공의 backendTls false를 관찰해 이 개발 프로젝트의 SSL 강제를 활성화하고 잠시 DB 재시작 후 재검증했다. runtime transaction·migration session 모두 DB/역할 postgres·readOnly true·clientTlsVerified true·backendTls true·exit0. Next.js 진단도 실제 DB200·status ok, health는 DB 정보 없이 기존 JSON 유지.
+- Docker27.3.1이 실행되어 분리 로컬 Supabase를 준비했다. Homebrew CLI 설치는 오래된 개발 도구 오류로 실패, 공식 v2.122.0 macOS ARM64 배포·공식 체크섬 대조 뒤 .tools/bin에 설치했다. OS 개발 도구·정책을 우회/변경하지 않았다.
+- test-infra/supabase/config.toml의 community-lab-test 전용 스택·전용 네트워크를 구성하고 실제5개 컨테이너의 모든 공개 포트127.0.0.1을 확인했다. CLI 원본 출력의 키는 메모리에서 처리하고 .env.test.local에는 필요한 공개키·DB주소만600으로 저장했다. 서버 secret/service_role/JWT secret은 저장·출력하지 않았다.
+- local-test 실제 DB 읽기·Auth 스키마·Auth 설정 HTTP200·전용대상 표시를 확인했다. start→check→stop→start→check 성공, Auth 사이트 기준을 테스트용3003으로 정리한 뒤 재기동·Docker 실제 설정·재검사도 성공했다. 현재3003 앱 서버는 없으며 개발 앱3001과 구분한다.
+- 새 파일: scripts/manage-test-environment.ts·check-test-environment.ts, src/lib/database/test-config.ts, test-infra 설정/안내. 개발 주소를 테스트에 넣으면 접속 전 거부하는3개 검사를 더해 설정10개 모두 통과. Node_ENV 읽기 전용 타입 오류는 환경을 package script에서 지정하는 방식으로 수정하고 타입·린트·최종 빌드 성공.
+- 최종 개발HTTP 진단200·health200, 프로덕션3002 진단404·빈본문·posts200·health200·POST405. 검사용3002만 종료(exit130), 기존3001/3000 유지. 현재 빌드 공개JS13개에서 실제 개발 DB URI/비밀번호 문자열 미발견, 현재 공개키 Auth 설정200 확인. 전체 보안 감사로 확대하지 않는다.
+- 사용자 “DBeaver 설정 화면 열림” 수신·실제 PostgreSQL 설정 페이지 확인. Main 입력란이 자동 도구에 노출되지 않아 Host/Port/Database/Username·직접 비밀번호·저장 끔·SSL verify-full·공식 CA 파일·Test Connection과 드라이버 다운로드를 구체적 인계했다. 아직 GUI 성공을 확인하지 않았고 03-SETUP-08은 WAITING_USER_ACTION이다.
+- 최종 문서·Git 검사 PASS: Markdown17개·내부 링크/이미지87개, 기존 작업 ID259개·중복 없음·현재 체크43개, REVIEW/COMMIT·DBeaver 항목 미체크, staged0·HEAD50c7f91 유지, 환경 파일600·실제 제외, 변경28개에서 비밀 패턴 없음. 공개JS13개 자격 증명 문자열 검사도 통과했다.
+- 나머지 검토 자료·WHY·실패/성공·학습 질문·제한을 보완해 현재·다음03-REVIEW / WAITING_USER_REVIEW로 제출한다. 사용자 확인과 DBeaver 남은 검사를 마친 뒤03-COMMIT, 허용된 같은 브랜치 push, 그다음04-01 순서다. 새 단계 커밋·push·실제 업무 테이블·Drizzle migration·ERD 변경은 없음.
+
+## DBeaver 사용자 확인 후속 기록 · 2026-10-27
+
+- 실제 응답: “SSL 선택할때 다운로드 했고 Test Connection 이상없어서 피니쉬 눌렀어”. 정확한 메시지 전송 시각은 제공되지 않았고 결과 기록 시각은 2026-10-27 09:51:09 +09:00이다.
+- DBeaver 설정 인계 뒤의 Test Connection 성공·Finish 완료를 사용자 검사 근거로 기록해 03-SETUP-08을 DONE으로 갱신했다. 에이전트의 직접 SQL 실행·세부 SSL 값 독립 검사를 수행했다고 확대하지 않는다.
+- README·환경 안내·검토 자료·플랜 체크를 실제 상태에 맞췄다. 문서만 변경해 앱 검사를 반복하지 않았다. 문서 검사 PASS: Markdown17개·내부 링크87개·ID259개 보존·체크44개, DBeaver DONE·전체 REVIEW 대기·staged0·HEAD50c7f91 유지, diff 공백 오류 없음.
+- 이 응답을 STEP 03 전체 결과 승인으로 처리하지 않았다. 현재·다음 03-REVIEW / WAITING_USER_REVIEW, 확인 후 03-COMMIT. stage·commit·push·STEP04 진행 없음.
+
+## 플랜 개정 3 · 기능별 테이블·ERD 학습 반영 (당시 이력)
 
 - 사용자 요청: 각 기능을 만들 때 테이블을 설계·생성하고 구조가 추가·변경되는 과정을 ERD로 학습할 수 있게 플랜을 바꾼다. 실제 원문·변경 기록 시각은 [개정 기록](plan-changes/2026-10-26-feature-erd.md)에 보존했다. 정확한 메시지 전송 시각은 별도 제공되지 않았다.
 - 실제 완료: STEP 04는 현재 구조 읽기·변경 기록 기준, STEP 05는 Drizzle·migration 도구 준비로 조정했다. profiles·posts 최초 설계·생성은 각각 06-API-01·07-API-01로 옮겼다. 댓글·친구·쪽지·채팅·선택 RBAC의 기존 데이터 작업에는 전후 ERD·컬럼/제약의 WHY·초기 접근 제한·실제 검증을 연결했다. STEP 08은 현재 구조만 점검하고 STEP 13·16도 설계 변화의 증거와 연결한다.

@@ -1,6 +1,6 @@
-# STEP 02 환경·Git 준비와 WHY
+# 개발 환경·Git 준비와 WHY
 
-작성일: 2026-10-26 (Asia/Seoul) · 확인 지점: `02-ENV-REVIEW`
+최초 작성일: 2026-10-26 (Asia/Seoul). 1~7절은 STEP 02 환경 당시 이력이며 현재 상태는 [진행 기록](work-status.md)을 따른다.
 
 목적은 실행 환경·문서 원본·Git 연결을 준비하고, 서버가 실제 응답하는지 확인하는 것이다. 공통 메뉴·폼·오류 UI는 환경 확인과 첫 커밋 이후의 `02-UI-xx` 범위다.
 
@@ -126,3 +126,15 @@ GET `/`도 200·한국어 lang·제목·본문을 확인했다. 브라우저에�
 2. **커밋과 push는 왜 구분하나요?** 로컬 이력과 원격 반영은 다르다. 사용자 확인·인증·명령 성공·원격 결과를 각각 기록한다.
 
 설명은 제공했지만 사용자의 이해·복습 완료는 확인하지 않았다. [02-ENV-REVIEW 기록](reviews/step02-env.md)의 환경 확인·커밋·push는 완료했고 공통 UI를 진행한다. 다음 사용자 확인은 `02-UI-REVIEW`다.
+
+## 8. STEP 02 공통 UI 확인·커밋·원격 반영 후속 기록
+
+사용자가 2026-10-27 후속 응답에서 개정 플랜과 `02-UI-REVIEW`를 명시적으로 확인했다. 실제 응답과 승인 기록 시각은 [UI 검토 자료](reviews/step02-ui.md)에 보존했다. UI·개정 플랜·환경 후속 문서 33개 파일을 `50c7f91ac1d518f47a73bb7ddc6877f5bdb182eb`로 커밋했고, Git 기록 시각은 2026-10-27 08:36:59 +09:00이다. 허용된 `origin/codex/step02-environment` push exit 0, 원격 해시 일치·직후 clean을 확인했다.
+
+이 해시·push 결과를 적는 후속 변경은 다음 예정 `03-COMMIT`에 포함한다. STEP 03의 새 코드는 아직 승인·커밋하지 않았다.
+
+## 9. STEP 03 Supabase·환경 변수·실제 연결
+
+현재 계정 상태, 개발 프로젝트 준비, 공개값/비밀값의 역할, runtime·migration 연결 방식, 서버 검사 코드, SQL Editor·DBeaver, 분리 테스트 환경·Data API 원칙은 [Supabase 설정·WHY·계정 인계](supabase-setup.md)에 정리했다. [STEP 03 준비 결과](reviews/step03.md)는 자동 검사 성공과 실제 DB 미연결을 구분한다.
+
+초기 ENV_MISSING·자리표시자 ENV_INVALID 이후 실제 값이 입력된 것을 확인했다. 입력 도구의 기존 값 보존 안내를 보완하고 공식 CA·SSL 강제를 적용해 두 DB 주소·Next.js의 실제 읽기를 성공시켰다. 별도 로컬 Supabase DB/Auth도 읽기·Auth HTTP200·중지/재기동을 확인했다. DBeaver Test Connection 성공·Finish도 사용자 보고로 확인했으며 현재 `03-REVIEW` 전체 확인을 기다린다. STEP 03은 아직 전체 사용자 승인·커밋하지 않았다.

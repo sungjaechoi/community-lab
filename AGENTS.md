@@ -101,14 +101,17 @@
 
 앱 루트의 기존 AGENTS.md와 이 규칙을 병합한다. 전체 플랜은 docs/work-plan.md로, 진행 기록·STEP 01 문서는 앱의 docs/로 이관한다. 내용과 경로를 확인한 뒤 앱 내부를 유일한 진행 원본으로 지정하고 상위 진행 기록에는 이동 경로만 남긴다. 다음 작업부터 실제 앱 루트를 선택하도록 안내한다.
 
-실제 성공한 명령(앱 루트, 2026-10-26):
+실제 성공한 명령(앱 루트, 2026-10-26~27):
 
 - 개발: `pnpm dev --hostname 127.0.0.1 --port 3001` — 기본 화면·health 응답 확인.
 - 타입: `pnpm typecheck` — `next typegen && tsc --noEmit` 통과.
 - 린트: `pnpm lint` — `eslint . --max-warnings=0` 통과.
 - 빌드: `pnpm build` — Turbopack 프로덕션 빌드 통과.
 - 프로덕션 실행: `pnpm start --hostname 127.0.0.1 --port 3001` — 준비 화면·리다이렉트·개발 전용 경로 404·health 확인.
-- 별도 테스트 명령은 아직 없다. Node 22.15.1·pnpm 10.29.3에서 확인했고 자세한 근거·제한은 `docs/development-setup.md`, 현재 상태는 `docs/work-status.md`를 따른다.
+- 설정 검사: `pnpm test:setup` — 환경값·대상·TLS·비밀 출력·개발/테스트 경계 10개 통과.
+- 개발 DB: `pnpm env:check`·`pnpm db:check` — 공식 CA 적용 후 runtime/migration 읽기·TLS 인증서 검증 통과. Next.js 개발 진단도 실제 DB 연결 200 확인. 자세한 결과는 STEP 03 검토 자료를 따른다.
+- 분리 테스트: `pnpm test:env:start`·`pnpm test:env:check`·`pnpm test:env:stop` — 로컬 DB/Auth 기동·읽기·중지/재기동 확인. `.env.test.local`과 `test-infra/README.md`를 사용하며 개발 DB로 대체하지 않는다.
+- 업무 통합 테스트 명령은 아직 없다. Node 22.15.1·pnpm 10.29.3에서 확인했고 자세한 근거·제한은 `docs/development-setup.md`, 현재 상태는 `docs/work-status.md`를 따른다.
 
 ## 생성기가 제공한 Next.js 지침
 

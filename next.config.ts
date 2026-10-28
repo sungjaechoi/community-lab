@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // OAuth callback codes must not appear in development request logs.
+  logging: { incomingRequests: { ignore: [/^\/auth\//] }, browserToTerminal: false },
   turbopack: {
     rules: {
       "*.css": {

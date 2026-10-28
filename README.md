@@ -1,45 +1,44 @@
 # Community Lab
 
-공개 글·댓글로 교류하고 친구와 쪽지·1대1 채팅을 나누는 학습용 커뮤니티다. 화면을 서버 입력·권한 검사와 PostgreSQL 저장까지 연결하고, 선택 이유와 검증 근거를 남긴다.
+완성된 프론트엔드를 바탕으로 백엔드를 직접 설계하고 연결하는 학습용 커뮤니티다. 작은 질문과 요청에 맞춰 필요한 데이터·규칙·API를 하나씩 만든다.
 
-STEP 04까지 사용자 확인 후 커밋·push했다. 현재 **STEP 05에서 Drizzle 도구와 개발/분리 테스트의 역할별 연결을 준비하고 `05-REVIEW` 확인을 기다리고 있다**. 앱은 전용 community_lab_runtime, 구조 변경용 관리는 postgres 역할을 사용한다. 업무 테이블·업무 migration은 아직 없다. 사용자 로그인·게시글·친구·쪽지·채팅 기능은 후속 범위다. 현재 위치는 [진행 기록](docs/work-status.md)을 따른다.
+## 현재 상태
+
+- 기존 화면·스타일과 Google·Supabase 로그인·로그아웃·로그인 상태 유지를 남겼다.
+- 로그인은 Supabase Auth만 사용한다. 세션의 `user.id`는 Auth 사용자 ID이고, `displayName`은 Google 계정 정보에서 가져온 표시명이다. 서비스 프로필을 생성하거나 저장하지 않는다.
+- 프로필·게시글 백엔드와 기존 migration 이력을 제거했다. 개발 DB의 `public` 업무 테이블은 0개이며, Supabase 관리형 Auth 사용자·Google 연결·기존 DB 접속 설정은 유지한다.
+- 게시글 목록·상세·작성·수정 화면은 API 연결 전 미리보기다. 저장·삭제는 비활성화되어 있으며 데이터가 저장된 것처럼 표시하지 않는다.
+- 기존 STEP 문서·검토 자료·기능 테스트를 정리했다. 프로필 구현은 아직 시작하지 않았으며 다음 요청을 기다린다.
 
 ## 실행
 
-Node.js 22.15.1(`.nvmrc`)과 pnpm 10.29.3(`packageManager`)으로 확인했다. 실제 비밀값 없이 실행할 수 있다.
+앱 폴더에서 Node.js 22.15.1과 pnpm 10.29.3을 사용한다.
 
 ```bash
 pnpm install --frozen-lockfile
 pnpm dev --hostname 127.0.0.1 --port 3001
 ```
 
-- 화면: [http://127.0.0.1:3001/posts](http://127.0.0.1:3001/posts), 루트는 게시글로 이동
-- 개발 전용 요소 검토: [http://127.0.0.1:3001/ui-preview](http://127.0.0.1:3001/ui-preview), 프로덕션에서는 404
-- 서버 상태: [http://127.0.0.1:3001/api/health](http://127.0.0.1:3001/api/health) → `200 {"status":"ok"}`
+- [게시글 화면](http://localhost:3001/posts) · [로그인](http://localhost:3001/login)
+- [작성 미리보기](http://localhost:3001/posts/new)
+- [상세 미리보기](http://localhost:3001/posts/00000000-0000-4000-8000-000000000000) · [수정 미리보기](http://localhost:3001/posts/00000000-0000-4000-8000-000000000000/edit)
+- [공통 UI 미리보기](http://localhost:3001/ui-preview): 개발 실행에서 확인
+- [서버 상태](http://localhost:3001/api/health): DB 연결 검사와 별개
 
-3000번은 작업 당시 다른 프로세스가 사용하고 있어 3001번으로 검증했다. health 성공은 HTTP 서버 경로의 응답이며 DB 연결 성공을 뜻하지 않는다.
+기존 `.env.local`과 인증서를 유지한다. 새로 구성할 때는 `.env.example`을 참고하며 실제 비밀값은 Git에 넣지 않는다. Google 자격 증명은 Supabase Google Provider 설정에 보관하고 브라우저 코드에 넣지 않는다.
 
-## 검증
+## 확인 명령
 
 ```bash
 pnpm typecheck
 pnpm lint
 pnpm build
-pnpm test:setup
+pnpm env:check
+pnpm db:check
 ```
 
-실제 결과와 알려진 제한은 [공통 UI 검토 자료](docs/reviews/step02-ui.md)와 [환경 검토 이력](docs/reviews/step02-env.md)에 있다. `typecheck`는 경로 타입 생성 후 TypeScript 검사, `lint`는 ESLint 검사, `build`는 배포용 결과 생성이다. 빌드와 린트는 따로 실행한다.
+`env:check`는 설정 형식을, `db:check`는 실제 DB 읽기 접속을 검사한다. Google 로그인은 [로그인 화면](http://localhost:3001/login)에서 따로 확인한다. 2026-10-28 정리 후 위 명령을 모두 통과했다. 실제 브라우저에서 기존 Google 계정의 로그아웃·재로그인·게시글 화면 복귀도 확인했으며, 이 과정에서 프로필 테이블이 생성되지 않는 것을 확인했다. 개발·프로덕션 HTTP 검사 각 26개와 360px 모바일 화면·저장/삭제 비활성 상태를 확인했다.
 
-## 문서와 설정
+DB 연결과 기본 Drizzle 준비는 유지한다. 다음 기능은 필요한 사용자 행동부터 이야기하고, 스키마·제약 조건·테이블·API·Postman·DBeaver·프론트 연결을 요청한 범위만 다룬다. 작업 규칙은 [AGENTS.md](AGENTS.md)에 있다.
 
-- [정식 플랜](docs/work-plan.md) · [요구사항](docs/requirements.md) · [화면 목록](docs/screens.md) · [권한 정책](docs/authorization.md)
-- [공통 UI·WHY](docs/ui/foundation.md) · [환경 설정·WHY·계정 인계](docs/development-setup.md) · [기술 선택](docs/decisions/0001-tech-stack.md)
-- [Supabase 계정·환경값·DB 연결 안내](docs/supabase-setup.md) · [STEP 03 준비 결과·남은 작업](docs/reviews/step03.md)
-- [STEP 04 검토 자료](docs/reviews/step04.md) · [현재 ERD](docs/erd.md) · [ERD 읽기·설계 기준](docs/decisions/0002-database-design.md) · [기능별 변경 기록](docs/erd-history/README.md)
-- [DB 도구·역할별 연결·첫 migration 절차](docs/database-migrations.md) · [STEP 05 검토 자료](docs/reviews/step05.md): `pnpm db:drizzle:check`, `pnpm test:db:drizzle:check`로 실제 읽기를 비교한다.
-- [분리 테스트 환경 실행·검증](test-infra/README.md): `pnpm test:env:start`, `pnpm test:env:check`, `pnpm test:env:stop`. 실제 테스트값은 제외된 `.env.test.local`에 보관한다.
-- `.env.example`은 공개할 수 있는 빈 예시다. 실제 값은 Git에서 제외되는 `.env.local`에 둔다. `pnpm env:configure`는 숨김 비밀번호 입력 도구이며 이미 값이 있으면 보존 후 안내한다. `pnpm env:check`는 설정 검사, `pnpm db:check`는 실제 읽기 접속 검사다. 현재 개발 DB 두 주소의 읽기는 성공했다.
-
-학습은 기능에 필요한 테이블을 그때 설계·생성하고 ERD의 변경 전후·이유·SQL·검증을 함께 남기는 방식으로 진행한다. STEP 04·05는 ERD 읽기·기록 기준과 도구 준비이며 업무 테이블은 STEP 06 로그인부터 추가한다. [학습 순서 개정 기록](docs/plan-changes/2026-10-26-feature-erd.md)에 범위와 기존 ID 대응을 남겼다.
-
-주요 기술은 Next.js App Router·TypeScript·Tailwind CSS·Drizzle·pg다. Supabase의 DB/Auth 테스트 기반을 준비했으며 사용자 로그인·Realtime 기능은 후속 단계에서 연결한다. DB 연결 문자열과 서버 비밀키는 브라우저 코드에 넣지 않는다.
+정리 전 소스와 DB의 로컬 복구 자료: `/Users/sungjaechoi/ToyProject/community-lab-reset-backups/20261028-143300`.

@@ -11,6 +11,8 @@ type ConfirmDialogProps = {
   onCancel: () => void;
   confirmLabel?: string;
   cancelLabel?: string;
+  pending?: boolean;
+  error?: string;
 };
 
 export function ConfirmDialog({
@@ -21,6 +23,8 @@ export function ConfirmDialog({
   onCancel,
   confirmLabel = "삭제",
   cancelLabel = "취소",
+  pending = false,
+  error,
 }: ConfirmDialogProps) {
   const id = useId();
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -48,6 +52,11 @@ export function ConfirmDialog({
       dialog.close();
     }
   }, [open]);
+
+  useEffect(() => {
+    // A pending button loses focus when disabled. Restore a safe target on failure.
+    if (open && !pending) cancelRef.current?.focus();
+  }, [open, pending]);
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -82,22 +91,25 @@ export function ConfirmDialog({
       className="confirm-dialog"
       aria-labelledby={`${id}-title`}
       aria-describedby={`${id}-description`}
+      aria-busy={pending || undefined}
       onKeyDown={keepFocusInside}
       onCancel={(event) => {
         event.preventDefault();
-        onCancel();
+        if (!pending) onCancel();
       }}
       onClose={restoreFocus}
     >
       <div className="dialog-body">
         <h2 id={`${id}-title`}>{title}</h2>
         <p id={`${id}-description`}>{description}</p>
+        {error && <p className="field__error" role="alert">{error}</p>}
+        {pending && <p role="status">삭제 중이에요. 잠시 기다려 주세요.</p>}
       </div>
       <div className="dialog-actions">
-        <Button ref={cancelRef} variant="secondary" onClick={onCancel}>
+        <Button ref={cancelRef} variant="secondary" disabled={pending} onClick={onCancel}>
           {cancelLabel}
         </Button>
-        <Button variant="danger" onClick={onConfirm}>
+        <Button variant="danger" pending={pending} onClick={onConfirm}>
           {confirmLabel}
         </Button>
       </div>

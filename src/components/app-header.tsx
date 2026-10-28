@@ -1,8 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { useAuth } from "./auth-provider";
+import { Button } from "./ui/button";
+import { safeReturnPath } from "@/lib/auth/policy";
 
 const navigation = [
   { href: "/posts", label: "게시글", path: "M4 4h16v12H9l-5 4V4Zm4 4h8M8 12h5" },
@@ -13,6 +16,8 @@ const navigation = [
 
 export function AppHeader() {
   const pathname = usePathname();
+  const router = useRouter();
+  const { session, expired, signingOut, signOutError, refresh, signOut } = useAuth();
   const [open, setOpen] = useState(false);
   const menuButton = useRef<HTMLButtonElement>(null);
 
@@ -49,13 +54,21 @@ export function AppHeader() {
         </Link>
         <nav className="desktop-nav" aria-label="주 메뉴">{renderLinks()}</nav>
         <div className="header-actions">
-          <Link href="/login" className="button button--secondary login-link" aria-current={pathname === "/login" ? "page" : undefined} onClick={() => setOpen(false)}>로그인</Link>
+          {session.status === "loading" && <span className="session-loading" role="status">로그인 확인 중…</span>}
+          {session.status === "guest" && <Link href={`/login?next=${encodeURIComponent(safeReturnPath(pathname))}`} className="button button--secondary login-link" aria-current={pathname === "/login" ? "page" : undefined} onClick={() => setOpen(false)}>로그인</Link>}
+          {session.status === "error" && <Button variant="ghost" className="session-retry" onClick={() => void refresh()}>로그인 상태 재확인</Button>}
+          {session.status === "authenticated" && <div className="user-menu"><span className="user-nickname" title={session.user.displayName}>{session.user.displayName}<span className="user-suffix">님</span></span><Button variant="secondary" className="login-link" pending={signingOut} onClick={async () => {
+            if (await signOut()) { setOpen(false); router.replace("/login?status=signed-out"); router.refresh(); }
+          }}>{signingOut ? "로그아웃 중…" : "로그아웃"}</Button></div>}
           <button ref={menuButton} type="button" className="menu-toggle" aria-label={open ? "메뉴 닫기" : "메뉴 열기"} aria-expanded={open} aria-controls="mobile-navigation" onClick={() => setOpen(!open)}>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true"><path d={open ? "m6 6 12 12M6 18 18 6" : "M4 7h16M4 12h16M4 17h16"} /></svg>
           </button>
         </div>
-        <nav id="mobile-navigation" className="mobile-nav" aria-label="모바일 주 메뉴" hidden={!open}>{renderLinks()}</nav>
+        <nav id="mobile-navigation" className="mobile-nav" aria-label="모바일 주 메뉴" hidden={!open}>{session.status === "authenticated" && <p className="mobile-user">{session.user.displayName}님</p>}{renderLinks()}</nav>
       </div>
+      {(signOutError || expired || session.status === "error") && <div className="session-notice" role={signOutError || session.status === "error" ? "alert" : "status"}>
+        {signOutError || (session.status === "error" ? "로그인 상태를 확인하지 못했어요. 다시 확인해 주세요." : "로그인이 만료되었거나 다른 창에서 로그아웃했어요.")}
+      </div>}
     </header>
   );
 }

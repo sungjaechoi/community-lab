@@ -2,23 +2,20 @@ import { existsSync } from "node:fs";
 import { resolve } from "node:path";
 import { loadEnvConfig } from "@next/env";
 import { readDatabaseSettings, SetupError, type ConnectionTarget } from "../lib/database/config";
-import { readLocalTestSettings } from "../lib/database/test-config";
 
 export const runtimeRole = "community_lab_runtime";
 export const developmentProjectRef = "awqctedxgsjyqkswogdu";
 
 export function loadToolEnvironment(root: string) {
   const environment = process.env.COMMUNITY_LAB_DB_ENV;
-  if ((environment !== "development" && environment !== "test") ||
-      (environment === "test" && process.env.NODE_ENV !== "test") ||
-      (environment === "development" && process.env.NODE_ENV && process.env.NODE_ENV !== "development")) {
-    throw new SetupError("DB_ENVIRONMENT", "도구는 development 또는 NODE_ENV=test의 test를 명시해야 합니다.");
+  if (environment !== "development" ||
+      (process.env.NODE_ENV && process.env.NODE_ENV !== "development")) {
+    throw new SetupError("DB_ENVIRONMENT", "현재 도구는 등록된 development 환경에서만 실행합니다.");
   }
-  const file = environment === "test" ? ".env.test.local" : ".env.local";
-  if (!existsSync(resolve(root, file))) {
-    throw new SetupError("DB_ENVIRONMENT", "선택한 환경 파일이 없습니다. 다른 환경으로 대체하지 않습니다.");
+  if (!existsSync(resolve(root, ".env.local"))) {
+    throw new SetupError("DB_ENVIRONMENT", ".env.local 환경 파일이 없습니다.");
   }
-  loadEnvConfig(root, environment === "development", { info() {}, error() {} });
+  loadEnvConfig(root, true, { info() {}, error() {} });
 }
 
 export function readDrizzleSettings(
@@ -35,12 +32,5 @@ export function readDrizzleSettings(
     }
     return { environment, ...settings };
   }
-  if (environment === "test") {
-    if (!env.MIGRATION_DATABASE_URL) {
-      throw new SetupError("DB_ROLE", "테스트 migration 주소를 별도로 명시하세요.");
-    }
-    const { config } = readLocalTestSettings(env, target);
-    return { environment, projectRef: "local-test", mode: "direct", expectedRole: config.user!, config };
-  }
-  throw new SetupError("DB_ENVIRONMENT", "DB 환경을 development 또는 test로 명시하세요.");
+  throw new SetupError("DB_ENVIRONMENT", "현재 DB 환경은 development만 지원합니다.");
 }

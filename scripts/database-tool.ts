@@ -8,7 +8,10 @@ import { safeFailure, SetupError } from "../src/lib/database/config";
 
 async function main() {
   const action = process.argv[2];
-  if (process.argv.length !== 3 || !["config", "generate", "check", "migrate"].includes(action)) {
+  const extra = process.argv.slice(3);
+  if (!([0, 1].includes(extra.length)) ||
+      (extra.length && (action !== "generate" || !/^--name=[a-z][a-z0-9_]{0,63}$/.test(extra[0]))) ||
+      !["config", "generate", "check", "migrate"].includes(action)) {
     throw new SetupError("ARGUMENT", "config·generate·check·migrate 중 하나가 필요합니다.");
   }
   const { default: config } = await import("../drizzle.config");
@@ -26,11 +29,15 @@ async function main() {
     console.log(JSON.stringify({ status: "skipped", action, reason: "NO_BUSINESS_SCHEMA_OR_MIGRATIONS", connected: false }));
     return;
   }
-  const result = spawnSync("pnpm", ["exec", "drizzle-kit", action, "--config=drizzle.config.ts"], {
+  const result = spawnSync("pnpm", ["exec", "drizzle-kit", action, "--config=drizzle.config.ts", ...extra], {
     cwd: root, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"], timeout: 60_000,
   });
   // CLI errors may embed SQL and credentials. Do not forward raw stdout/stderr.
-  if (result.error || result.status !== 0) {
+  const output = `${result.stdout || ""}\n${result.stderr || ""}`.replace(/\x1b\[[0-9;]*m/g, "");
+  const missingGeneratedFiles = action === "generate" &&
+    (!existsSync(resolve(folder, "meta/_journal.json")) || !readdirSync(folder).some((name) => name.endsWith(".sql")));
+  // Kit can report errors while exiting 0; exit status alone is insufficient.
+  if (result.error || result.status !== 0 || /\b(?:Error|error):/.test(output) || missingGeneratedFiles) {
     throw new SetupError("DRIZZLE_COMMAND", "Drizzle 명령이 실패했습니다. SQL·대상·이력을 점검하세요. 원본 오류는 출력하지 않습니다.");
   }
   console.log(JSON.stringify({ status: "ok", action, environment: process.env.COMMUNITY_LAB_DB_ENV }));

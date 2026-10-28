@@ -1,2 +1,2 @@
-// STEP 05: deliberately no business tables. First schema: STEP 06.
+// 업무 테이블은 아직 없습니다. 프로필 설계는 사용자의 다음 요청에서 시작합니다.
 export {};
